@@ -45,25 +45,41 @@ export const EXPERIENCE: Experience[] = [
     startDate: "August 2024",
     endDate: "July 2025",
     description: [
-      "Optimized back-end data processing with Java and Hibernate ORM, leveraging Dynamic Query in Liferay to streamline database operations, resulting in 30% lower response times.",
-      "Improved system stability and scalability by debugging and enhancing Liferay-based systems, reducing system crashes by 10%.",
-      "Delivered solutions integrating modern web dev techniques and efficient state management, increasing user session duration by 20%.",
-      "Implemented an RAG-based Cyber Security Consultant chatbot using phi-3.5 LLM and Hugging Face guardrails and embedding, resulting in a 60% increase in desktop application usage.",
-      "Combined multiple codebases into a singular structure to address legacy codebase and Liferay constraints, reducing development time by 40% and increasing code reusability by 70%.",
+      "Optimized back-end data processing by designing and implementing robust solutions with Java and Hibernate ORM, leveraging Dynamic Query in Liferay to streamline database operations, resulting in 30% lower response times.",
+      "Improved system stability and scalability by debugging and enhancing existing Liferay-based systems, ensuring adherence to best practices in the production environment, and reducing system crashes by 10%.",
+      "Resolved performance bottlenecks in SQL queries by understanding the client's business needs to identify key resources and removing overheads in REST APIs to ensure efficient data management and enterprise application reliability.",
+      "Identified performance and UX gaps to deliver solutions integrating modern web dev techniques and efficient state management, enabling high-performance applications that increased user session duration by 20%.",
+      "Implemented an RAG-based Cyber Security Consultant chatbot using phi-3.5 large language model and Hugging Face guardrails and embedding to improve users' personalized experience and answer quick queries.",
+      "Integrated the Firebase backend for the RAG-based Cyber Security Consultant chatbot for user-specific memory retention and context management, resulting in a 60% increase in desktop application usage.",
+      "Addressed scalability and customization challenges made due to legacy codebase and Liferay constraints by combining multiple codebases into a singular structure, reducing development time by 40% and increasing code reusability by 70%.",
     ],
   },
   {
     hash: "a7b8c9d",
-    role: "Associate Software Engineer (Part-time)",
+    role: "Associate Software Engineer – Part-time",
     company: "VAASEL",
     location: "Islamabad, PK",
     startDate: "September 2023",
     endDate: "April 2024",
     description: [
-      "Implemented a centralized property listing platform to address fragmented property listings, enhancing user accessibility and streamlining the browsing experience.",
-      "Designed and developed an agriculture-focused e-commerce platform, cutting intermediary costs by 30% and improving product availability.",
-      "Led an agile development team for a food donation platform, optimizing collaboration and ensuring zero delays and on-time project delivery.",
-      "Developed a transparent hiring process platform, improving candidate visibility and reducing HR workload by 40%.",
+      "Implemented a centralized property listing platform to address fragmented property listings, enhancing user accessibility, and streamlining the property browsing experience.",
+      "Designed and developed an agriculture-focused e-commerce platform to improve farmer and manufacturer connections that reduced intermediary reliance, cutting intermediary costs by 30% and improving product availability.",
+      "Enhanced team coordination for a food donation platform and led an agile development team, optimizing collaboration and communication, ensuring zero delays and on-time project delivery.",
+      "Boosted online engagement and visibility by creating interactive promotional websites to increase user interaction and support effective digital marketing campaigns.",
+      "Developed a transparent hiring process platform by identifying gaps in human resource management workflows to improve candidate visibility and reduce HR workload by 40%.",
+    ],
+  },
+  {
+    hash: "b2c3d4e",
+    role: "Frontend Engineer Intern",
+    company: "SAUFIK",
+    location: "Islamabad, PK",
+    startDate: "June 2023",
+    endDate: "August 2023",
+    description: [
+      "Built and maintained responsive frontend interfaces using React, React Router, and Redux for state management, contributing to production-ready web applications.",
+      "Gained hands-on experience with the MERN stack, implementing Context API and Redux patterns for efficient data flow across complex component hierarchies.",
+      "Collaborated with senior engineers to deliver feature modules, applying best practices in component architecture, routing, and client-side state management.",
     ],
   },
 ];
@@ -96,6 +112,66 @@ export const EDUCATION: Education[] = [
       "Large Language Models",
       "Mobile Development",
     ],
+  },
+];
+
+export interface Extracurricular {
+  hash: string;
+  role: string;
+  organization: string;
+  location: string;
+  startDate: string;
+  endDate: string;
+  description: string[];
+}
+
+export const EXTRACURRICULARS: Extracurricular[] = [
+  {
+    hash: "ex1a2b3",
+    role: "General Secretary",
+    organization: "Hack Club NUST",
+    location: "Islamabad, PK",
+    startDate: "2021",
+    endDate: "2022",
+    description: [
+      "Faced low student engagement in tech initiatives; spearheaded a week-long innovation event with hands-on workshops at NUST, resulting in 100+ students actively participating and increasing overall engagement.",
+      "Tasked with launching NUST's first hackathon as VP Operations for CodeFest'21, led cross-functional teams to deliver smooth on-ground execution for 300+ participants.",
+      "Addressed challenges in coordinating diverse event formats by managing logistics and communication for both virtual and in-person events, ensuring seamless, high-impact experiences across all audiences.",
+    ],
+  },
+  {
+    hash: "ex4d5e6",
+    role: "Director Social Events",
+    organization: "NUST Literary Circle",
+    location: "Islamabad, PK",
+    startDate: "March 2022",
+    endDate: "May 2022",
+    description: [
+      "Managed the Cultural Carnival, Book Bazaar, Art Expo, and Qawali night for NLF 3.0 — a national-level 3-day literary festival featuring seminars, workshops, and interactive sessions.",
+      "Coordinated across multiple teams and wings to ensure smooth execution of diverse event formats for a large-scale audience.",
+    ],
+  },
+];
+
+export interface Certification {
+  title: string;
+  issuer: string;
+  date: string;
+  credentialId?: string;
+}
+
+export const CERTIFICATIONS: Certification[] = [
+  {
+    title: "Machine Learning in Python",
+    issuer: "Udemy",
+    date: "December 2021",
+    credentialId: "UC-da56e1cf-0af3-4cfa-a392-65073761a567",
+  },
+  {
+    title: "Java and Object Oriented Programming",
+    issuer: "Udemy",
+    date: "September 2021",
+    credentialId: "UC-d8c933da-46f5-46bd-bc2f-68104411e20b",
   },
 ];
 
