@@ -27,7 +27,7 @@ export default function ServicesPage() {
         </p>
         <Link
           href="/contact"
-          className="gradient-bg mt-4 inline-block rounded-full px-8 py-3 font-medium text-white transition-shadow hover:shadow-glow-lg"
+          className="gradient-bg mt-4 inline-block rounded-full px-8 py-3 font-medium text-white transition-shadow hover:shadow-glow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-background"
         >
           Get a Quote
         </Link>

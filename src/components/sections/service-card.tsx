@@ -20,7 +20,7 @@ export function ServiceCard({ service }: ServiceCardProps) {
 
   return (
     <div className="group rounded-lg border border-border bg-surface p-6 transition-all duration-200 hover:-translate-y-0.5 hover:border-border-bright hover:shadow-glow">
-      <Icon size={32} className="text-accent-cyan" />
+      <Icon size={32} className="text-accent-cyan" aria-hidden="true" />
 
       <h3 className="text-h4 mt-4">{service.title}</h3>
 

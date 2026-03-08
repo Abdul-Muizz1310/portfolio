@@ -21,9 +21,9 @@ export function CodeBlock({
     >
       {/* Top bar */}
       <div className="flex h-8 items-center gap-2 border-b border-border bg-surface-hover px-3">
-        <span className="h-2.5 w-2.5 rounded-full" style={{ background: "#FF5F56" }} />
-        <span className="h-2.5 w-2.5 rounded-full" style={{ background: "#FFBD2E" }} />
-        <span className="h-2.5 w-2.5 rounded-full" style={{ background: "#27C93F" }} />
+        <span className="h-2.5 w-2.5 rounded-full" style={{ background: "#FF5F56" }} aria-hidden="true" />
+        <span className="h-2.5 w-2.5 rounded-full" style={{ background: "#FFBD2E" }} aria-hidden="true" />
+        <span className="h-2.5 w-2.5 rounded-full" style={{ background: "#27C93F" }} aria-hidden="true" />
         <span className="ml-2 font-mono text-[0.75rem] text-foreground-muted">
           {filename}
         </span>

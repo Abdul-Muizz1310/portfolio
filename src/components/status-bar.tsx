@@ -41,10 +41,10 @@ export function StatusBar() {
   const themeIndicator = isDark ? "☾ dark" : "☀ light";
 
   return (
-    <footer className="fixed bottom-0 left-0 right-0 z-50 flex h-7 items-center justify-between border-t border-border bg-surface px-4 font-mono text-[0.75rem] text-foreground-muted">
+    <footer className="fixed bottom-0 left-0 right-0 z-50 flex h-7 items-center justify-between border-t border-border bg-surface px-4 font-mono text-[0.75rem] text-foreground-muted" role="contentinfo" aria-label="Status bar">
       {/* Left side */}
       <div className="flex items-center gap-1 truncate">
-        <span className="text-accent-cyan">◉</span>
+        <span className="text-accent-cyan" aria-hidden="true">◉</span>
         <span className="hidden sm:inline">abdul-muizz.dev · </span>
         <span>{currentPath}</span>
       </div>
@@ -54,7 +54,7 @@ export function StatusBar() {
         <span className="hidden sm:inline">UTF-8 · </span>
         <span>{themeIndicator}</span>
         <span className="hidden sm:inline"> · {mounted ? time : ""}</span>
-        <span className="animate-pulse"> ▊</span>
+        <span className="animate-pulse" aria-hidden="true"> ▊</span>
       </div>
     </footer>
   );

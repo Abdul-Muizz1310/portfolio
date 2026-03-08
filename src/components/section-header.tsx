@@ -19,7 +19,7 @@ export function SectionHeader({ command, className }: SectionHeaderProps) {
           <span className="text-foreground">{command}</span>
         )}
       </h2>
-      <div className="gradient-bg mt-2 h-0.5 w-24 rounded-full" />
+      <div className="gradient-bg mt-2 h-0.5 w-24 rounded-full" aria-hidden="true" />
     </div>
   );
 }

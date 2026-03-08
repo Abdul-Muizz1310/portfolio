@@ -116,7 +116,7 @@ export function ContactClient() {
             <button
               type="submit"
               disabled={isPending}
-              className="gradient-bg mt-6 rounded-full px-6 py-2 font-mono font-medium text-white transition-shadow hover:shadow-glow-lg disabled:opacity-50"
+              className="gradient-bg mt-6 rounded-full px-6 py-2 font-mono font-medium text-white transition-shadow hover:shadow-glow-lg disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-background"
             >
               {isPending ? "$ sending..." : "$ send --message"}
             </button>

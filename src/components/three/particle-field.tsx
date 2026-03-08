@@ -146,7 +146,7 @@ function Particles() {
 
 export function ParticleField({ className }: { className?: string }) {
   return (
-    <div className={className}>
+    <div className={className} aria-hidden="true">
       <Canvas
         camera={{ position: [0, 0, 15], fov: 60 }}
         dpr={[1, 1.5]}

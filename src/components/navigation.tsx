@@ -52,7 +52,7 @@ export function Navigation() {
   }
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 h-16 glass">
+    <nav className="fixed top-0 left-0 right-0 z-50 h-16 glass" aria-label="Main navigation">
       <div className="mx-auto flex h-full max-w-[1200px] items-center justify-between px-4 sm:px-8">
         {/* Logo */}
         <Link

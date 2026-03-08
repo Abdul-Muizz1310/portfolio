@@ -17,6 +17,7 @@ export function Hero() {
   return (
     <section className="relative flex min-h-screen items-center justify-center overflow-hidden">
       {/* Particle background */}
+      {/* Particle background */}
       <ParticleField className="absolute inset-0 z-0" />
 
       {/* Content */}
@@ -28,14 +29,14 @@ export function Hero() {
           <div className="mt-8 flex flex-wrap gap-4">
             <Link
               href="/projects"
-              className="gradient-bg inline-flex rounded-full px-6 py-3 font-medium text-white transition-shadow hover:shadow-glow-lg"
+              className="gradient-bg inline-flex rounded-full px-6 py-3 font-medium text-white transition-shadow hover:shadow-glow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-background"
             >
               View Projects
             </Link>
             <a
               href="/resume.pdf"
               download
-              className="inline-flex rounded-full border border-border px-6 py-3 text-foreground-muted transition-colors hover:border-border-bright hover:text-foreground"
+              className="inline-flex rounded-full border border-border px-6 py-3 text-foreground-muted transition-colors hover:border-border-bright hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-background"
             >
               Download Resume
             </a>
@@ -60,7 +61,7 @@ export function Hero() {
       </div>
 
       {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2">
+      <div className="absolute bottom-8 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2" aria-hidden="true">
         <span className="font-mono text-[0.875rem] text-foreground-faint">
           {"// scroll to continue"}
         </span>
