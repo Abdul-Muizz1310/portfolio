@@ -1,36 +1,69 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Abdul-Muizz — Portfolio
+
+Personal portfolio built with **Next.js 16**, **React 19**, and **Three.js**. Features interactive 3D particle fields, a terminal-style hero, and a full experiments lab.
+
+## Tech Stack
+
+| Layer | Technologies |
+|-------|-------------|
+| Framework | Next.js 16 (App Router, React Compiler) |
+| UI | React 19, Tailwind CSS 4, ShadCN/UI, Framer Motion |
+| 3D | Three.js, React Three Fiber, Drei |
+| State | Zustand |
+| Fonts | Geist Sans, Geist Mono, Space Grotesk |
+| Email | Resend |
+
+## Pages
+
+| Route | Description |
+|-------|-------------|
+| `/` | Hero with particle field, tech stack, featured projects, testimonials |
+| `/about` | Bio, experience timeline, education, values |
+| `/projects` | GitHub-integrated project gallery with filtering |
+| `/resume` | Resume rendered as a styled code block |
+| `/blog` | Articles fetched from Dev.to |
+| `/services` | AI/ML, Full-Stack, Automation, Consulting |
+| `/contact` | Contact form powered by Resend |
+| `/lab/*` | Interactive experiments (AI chat, particles, terminal, scraper, API playground, frontend showcase) |
+
+## Features
+
+- **3D Particle Field** — WebGL particles with mouse-reactive physics on the hero
+- **Terminal Typer** — Animated terminal-style introduction (`whoami`, `role`, `location`)
+- **Custom Cursor** — Animated cyan dot + ring on pointer devices
+- **Konami Code Easter Egg** — Type `↑↑↓↓←→←→BA` to unlock a secret terminal with Matrix rain
+- **Dark/Light Theme** — System-aware with manual toggle
+- **Responsive** — Mobile-first design across all pages
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Command | Description |
+|---------|-------------|
+| `npm run dev` | Start dev server |
+| `npm run build` | Production build |
+| `npm run start` | Start production server |
+| `npm run lint` | ESLint check |
 
-## Learn More
+## Project Structure
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+src/
+├── app/              # Pages and layouts (App Router)
+├── components/       # React components
+│   ├── ui/           # ShadCN/UI primitives
+│   ├── sections/     # Page sections (hero, projects, etc.)
+│   └── three/        # Three.js/R3F components
+├── hooks/            # Custom React hooks
+├── stores/           # Zustand stores
+├── lib/              # Utilities, constants, data
+└── types/            # Shared TypeScript types
+```

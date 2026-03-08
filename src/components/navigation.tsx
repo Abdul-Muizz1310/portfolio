@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { Sun, Moon, Menu, X } from "lucide-react";
+import { Sun, Moon, Menu, X, Home } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { NAV_LINKS } from "@/lib/constants";
 import { useThemeStore } from "@/stores/theme-store";
@@ -59,9 +59,10 @@ export function Navigation() {
         {/* Logo */}
         <Link
           href="/"
-          className="gradient-text font-heading text-xl font-bold"
+          className="group flex items-center justify-center rounded-md p-1.5 transition-colors hover:bg-surface-hover"
+          aria-label="Home"
         >
-          AM
+          <Home className="size-5 text-accent-blue transition-colors group-hover:text-accent-cyan" />
         </Link>
 
         {/* Desktop Nav Links */}
