@@ -203,6 +203,14 @@ body {
   font-family: var(--font-geist-sans), system-ui, sans-serif;
 }
 
+/* Custom cursor — hide default cursor only on pointer devices when active */
+@media (pointer: fine) {
+  body.custom-cursor,
+  body.custom-cursor * {
+    cursor: none !important;
+  }
+}
+
 /* --- Custom Utility Classes --- */
 @utility gradient-text {
   background: linear-gradient(135deg, #22d3ee, #3b82f6, #8b5cf6);
