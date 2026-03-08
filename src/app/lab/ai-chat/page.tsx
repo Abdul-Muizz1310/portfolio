@@ -207,7 +207,6 @@ export default function AiChatPage() {
             placeholder="Ask about AI/ML, RAG, projects, skills..."
             className="flex-1 bg-surface border border-border rounded-lg px-4 py-2.5 text-foreground text-[0.875rem] font-mono placeholder:text-foreground-faint outline-none focus:border-accent-cyan transition-colors"
             disabled={isProcessing}
-            autoFocus
             spellCheck={false}
           />
           <button

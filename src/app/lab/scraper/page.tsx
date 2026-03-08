@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { motion } from "framer-motion";
@@ -62,8 +62,11 @@ export default function ScraperPage() {
 
   const htmlLinesArray = SAMPLE_HTML.split("\n");
 
+  const isRunningRef = useRef(false);
+
   const runScrape = useCallback(async () => {
-    if (isRunning) return;
+    if (isRunningRef.current) return;
+    isRunningRef.current = true;
     setIsRunning(true);
     setStage("idle");
     setTypedUrl("");
@@ -102,15 +105,15 @@ export default function ScraperPage() {
 
     setStage("done");
     setIsRunning(false);
-  }, [isRunning, htmlLinesArray.length]);
+    isRunningRef.current = false;
+  }, [htmlLinesArray.length]);
 
   useEffect(() => {
     const timer = setTimeout(() => {
       runScrape();
     }, 500);
     return () => clearTimeout(timer);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [runScrape]);
 
   const stageIndex = STAGES.findIndex((s) => s.key === stage);
 

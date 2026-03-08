@@ -150,8 +150,12 @@ export default function TerminalPage() {
 
       <div
         ref={scrollRef}
+        role="textbox"
+        tabIndex={0}
+        aria-label="Terminal output"
         className="bg-[#0A0A0F] min-h-screen pt-28 pb-7 px-4 sm:px-8 font-mono overflow-y-auto"
         onClick={() => inputRef.current?.focus()}
+        onKeyDown={() => inputRef.current?.focus()}
       >
         <div className="max-w-[900px] mx-auto text-[0.875rem] leading-relaxed">
           {output.map((line, i) => (
@@ -176,7 +180,6 @@ export default function TerminalPage() {
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={handleKeyDown}
               className="bg-transparent outline-none text-foreground flex-1 ml-1 caret-accent-cyan"
-              autoFocus
               spellCheck={false}
               autoComplete="off"
             />
