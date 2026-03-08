@@ -1,0 +1,70 @@
+{
+  "version": 1,
+  "skills": {
+    "Frontend Responsive Design Standards": {
+      "source": "am-will/codex-skills",
+      "sourceType": "github",
+      "computedHash": "e01516e24ba086a603fdf753f9b4e428a3684fbf3010b9295352202fd3461fa8"
+    },
+    "backend-dev-guidelines": {
+      "source": "sickn33/antigravity-awesome-skills",
+      "sourceType": "github",
+      "computedHash": "eb16c993a388bb55715d6ad76f0b142c6c7ceb2c3c4e3af4042fdbd9521731f4"
+    },
+    "backend-development": {
+      "source": "mrgoonie/claudekit-skills",
+      "sourceType": "github",
+      "computedHash": "dedbc6bb7afa2c16ac6b3451a435a198af0e5d3786b30a15d40910ba207fd6e3"
+    },
+    "backend-patterns": {
+      "source": "affaan-m/everything-claude-code",
+      "sourceType": "github",
+      "computedHash": "6456e45aca107569db0bf67910f58b60af891330864bfdb3fc1c7a9df1ceffbc"
+    },
+    "find-skills": {
+      "source": "vercel-labs/skills",
+      "sourceType": "github",
+      "computedHash": "25872a21881a950edc3db1f3329664d60405d539660ce05b3265db2de06a7dfd"
+    },
+    "nextjs-app-router-patterns": {
+      "source": "wshobson/agents",
+      "sourceType": "github",
+      "computedHash": "04c1df896cc2c9ef824d618b95d21686c5b8e24e5cb32b3d6fe9d97d4b661536"
+    },
+    "nextjs-supabase-auth": {
+      "source": "sickn33/antigravity-awesome-skills",
+      "sourceType": "github",
+      "computedHash": "8bb779c17e0e13fb3bbd5ec622ecc1a6a7131f241a8f064953fca95f4f3d4bdf"
+    },
+    "react-state-management": {
+      "source": "wshobson/agents",
+      "sourceType": "github",
+      "computedHash": "76c3686478c0b3f60f5ee9b4626997a61605e1a625e16d31c906db99c9bc1a19"
+    },
+    "react:components": {
+      "source": "google-labs-code/stitch-skills",
+      "sourceType": "github",
+      "computedHash": "5e786773a89012ae15b01b5c11942db30b09f935929283d8eb8a30b2da5fabf7"
+    },
+    "remotion-best-practices": {
+      "source": "remotion-dev/skills",
+      "sourceType": "github",
+      "computedHash": "46a55d68886d6c104bde7803c55a479f91b45ae01441e37c800373bcb0bf3719"
+    },
+    "ui-ux-pro-max": {
+      "source": "nextlevelbuilder/ui-ux-pro-max-skill",
+      "sourceType": "github",
+      "computedHash": "ce9a142b3a21d617c556bd4c3f78ae5877829b48aac5525dac0a83418870d673"
+    },
+    "vercel-react-best-practices": {
+      "source": "vercel-labs/agent-skills",
+      "sourceType": "github",
+      "computedHash": "3ff06f0712886f7c2660d6746856c22d3127bd6568ddde29ddad8b72dbaaa226"
+    },
+    "web-design-guidelines": {
+      "source": "vercel-labs/agent-skills",
+      "sourceType": "github",
+      "computedHash": "d8e7d3afe37dcc8a97b99ffb5afdb4d0919ae0092ea8b68f44eb201f035e33ac"
+    }
+  }
+}
