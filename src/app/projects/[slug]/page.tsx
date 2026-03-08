@@ -5,7 +5,6 @@ import ReactMarkdown from "react-markdown";
 import { fetchGitHubRepos, fetchRepoReadme } from "@/lib/github";
 import { LANGUAGE_COLORS } from "@/lib/constants";
 import { CodeBlock } from "@/components/code-block";
-import { PageTransition } from "@/components/page-transition";
 
 interface ProjectDetailPageProps {
   params: Promise<{ slug: string }>;
@@ -38,13 +37,13 @@ export default async function ProjectDetailPage({
 
   if (!repo) {
     return (
-      <PageTransition>
+      <>
         <div className="mx-auto max-w-[1200px] px-4 py-20 sm:px-8">
           <p className="font-mono text-foreground-muted">
             // Repository not found
           </p>
         </div>
-      </PageTransition>
+      </>
     );
   }
 
@@ -54,7 +53,7 @@ export default async function ProjectDetailPage({
     : null;
 
   return (
-    <PageTransition>
+    <>
       <div className="mx-auto max-w-[1200px] px-4 py-20 sm:px-8">
         {/* Back link */}
         <Link
@@ -239,6 +238,6 @@ export default async function ProjectDetailPage({
           </aside>
         </div>
       </div>
-    </PageTransition>
+    </>
   );
 }

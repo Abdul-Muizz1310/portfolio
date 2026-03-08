@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { PageTransition } from "@/components/page-transition";
 import { CodeBlock } from "@/components/code-block";
 import {
   PERSONAL_INFO,
@@ -224,22 +223,20 @@ function ResumeLines() {
 
 export default function ResumePage() {
   return (
-    <PageTransition>
-      <div className="mx-auto max-w-[1200px] px-4 py-20 sm:px-8">
-        <div className="mb-6 flex items-center justify-end">
-          <a
-            href="/resume.pdf"
-            download
-            className="font-mono text-[0.875rem] bg-surface border border-border rounded-full px-4 py-1.5 hover:border-border-bright transition-colors"
-          >
-            $ export resume.pdf
-          </a>
-        </div>
-
-        <CodeBlock filename="resume.tsx" showLineNumbers={true}>
-          <ResumeLines />
-        </CodeBlock>
+    <div className="mx-auto max-w-[1200px] px-4 py-20 sm:px-8">
+      <div className="mb-6 flex items-center justify-end">
+        <a
+          href="/resume.pdf"
+          download
+          className="font-mono text-[0.875rem] bg-surface border border-border rounded-full px-4 py-1.5 hover:border-border-bright transition-colors"
+        >
+          $ export resume.pdf
+        </a>
       </div>
-    </PageTransition>
+
+      <CodeBlock filename="resume.tsx" showLineNumbers={true}>
+        <ResumeLines />
+      </CodeBlock>
+    </div>
   );
 }

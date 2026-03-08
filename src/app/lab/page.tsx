@@ -1,4 +1,3 @@
-import { PageTransition } from "@/components/page-transition";
 import { SectionHeader } from "@/components/section-header";
 import { LabCard } from "@/components/sections/lab-card";
 
@@ -49,34 +48,32 @@ function RagPreview() {
 
 export default function LabPage() {
   return (
-    <PageTransition>
-      <div className="max-w-[1200px] mx-auto px-4 sm:px-8 py-20">
-        <SectionHeader command="$ cd ~/lab && ls" />
+    <div className="max-w-[1200px] mx-auto px-4 sm:px-8 py-20">
+      <SectionHeader command="$ cd ~/lab && ls" />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
-          <LabCard
-            title="Particle Playground"
-            description="Interactive WebGL particle system with mouse-reactive physics and configurable parameters."
-            tech={["Three.js", "React Three Fiber", "WebGL"]}
-            href="/lab/particles"
-            preview={<ParticlePreview />}
-          />
-          <LabCard
-            title="Terminal Emulator"
-            description="A browser-based terminal interface. Try running some commands to learn more about me."
-            tech={["React", "TypeScript"]}
-            href="/lab/terminal"
-            preview={<TerminalPreview />}
-          />
-          <LabCard
-            title="RAG Demo"
-            description="Retrieval-Augmented Generation pipeline demo with document ingestion and semantic search."
-            tech={["Python", "LangChain", "RAG"]}
-            href="#"
-            preview={<RagPreview />}
-          />
-        </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+        <LabCard
+          title="Particle Playground"
+          description="Interactive WebGL particle system with mouse-reactive physics and configurable parameters."
+          tech={["Three.js", "React Three Fiber", "WebGL"]}
+          href="/lab/particles"
+          preview={<ParticlePreview />}
+        />
+        <LabCard
+          title="Terminal Emulator"
+          description="A browser-based terminal interface. Try running some commands to learn more about me."
+          tech={["React", "TypeScript"]}
+          href="/lab/terminal"
+          preview={<TerminalPreview />}
+        />
+        <LabCard
+          title="RAG Demo"
+          description="Retrieval-Augmented Generation pipeline demo with document ingestion and semantic search."
+          tech={["Python", "LangChain", "RAG"]}
+          href="#"
+          preview={<RagPreview />}
+        />
       </div>
-    </PageTransition>
+    </div>
   );
 }
