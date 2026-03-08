@@ -1,7 +1,14 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { SectionHeader } from "@/components/section-header";
 import { ServiceCard } from "@/components/sections/service-card";
 import { SERVICES } from "@/lib/services";
+
+export const metadata: Metadata = {
+  title: "Services — Abdul-Muizz",
+  description:
+    "AI & ML solutions, full-stack web development, Python automation, and technical consulting services.",
+};
 
 export default function ServicesPage() {
   return (

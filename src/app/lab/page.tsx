@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { SectionHeader } from "@/components/section-header";
 import { LabCard } from "@/components/sections/lab-card";
 
@@ -45,6 +46,12 @@ function RagPreview() {
     </div>
   );
 }
+
+export const metadata: Metadata = {
+  title: "Lab — Abdul-Muizz",
+  description:
+    "Interactive experiments and demos — particle systems, terminal emulators, and more.",
+};
 
 export default function LabPage() {
   return (

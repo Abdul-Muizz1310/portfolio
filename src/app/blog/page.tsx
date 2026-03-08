@@ -1,7 +1,14 @@
+import type { Metadata } from "next";
 import { SectionHeader } from "@/components/section-header";
 import { BlogEntry } from "@/components/sections/blog-entry";
 import { LinkedInSection } from "@/components/sections/linkedin-section";
 import { fetchDevToArticles } from "@/lib/devto";
+
+export const metadata: Metadata = {
+  title: "Blog — Abdul-Muizz",
+  description:
+    "Technical articles and insights on AI/ML, software engineering, and web development.",
+};
 
 export default async function BlogPage() {
   let articles;
