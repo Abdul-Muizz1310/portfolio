@@ -228,7 +228,7 @@ export default function ResumePage() {
         <a
           href="/resume.pdf"
           download
-          className="font-mono text-[0.875rem] bg-surface border border-border rounded-full px-4 py-1.5 hover:border-border-bright transition-colors"
+          className="font-mono text-[0.875rem] bg-surface border border-border rounded-full px-4 py-1.5 hover:border-border-bright transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-background"
         >
           $ export resume.pdf
         </a>

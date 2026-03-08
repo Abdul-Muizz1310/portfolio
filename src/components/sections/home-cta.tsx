@@ -9,7 +9,7 @@ export function HomeCta() {
         </p>
         <Link
           href="/contact"
-          className="gradient-bg text-white font-medium px-8 py-3 rounded-full hover:shadow-glow-lg transition-shadow mt-4 inline-block"
+          className="gradient-bg text-white font-medium px-8 py-3 rounded-full hover:shadow-glow-lg transition-shadow mt-4 inline-block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-background"
         >
           Get in Touch
         </Link>
