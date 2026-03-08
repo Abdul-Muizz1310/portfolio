@@ -20,9 +20,11 @@ function Particles() {
     const origPos = new Float32Array(PARTICLE_COUNT * 3);
 
     for (let i = 0; i < PARTICLE_COUNT; i++) {
+      /* eslint-disable react-hooks/purity -- Intentional: one-time random initialization for particle positions */
       const x = (Math.random() - 0.5) * 30; // -15 to 15
       const y = (Math.random() - 0.5) * 20; // -10 to 10
       const z = (Math.random() - 0.5) * 10; // -5 to 5
+      /* eslint-enable react-hooks/purity */
 
       pos[i * 3] = x;
       pos[i * 3 + 1] = y;

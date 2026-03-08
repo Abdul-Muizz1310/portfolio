@@ -26,9 +26,11 @@ function PlaygroundParticles({ count, color, gravity }: PlaygroundParticlesProps
     const origPos = new Float32Array(count * 3);
 
     for (let i = 0; i < count; i++) {
+      /* eslint-disable react-hooks/purity -- Intentional: one-time random initialization for particle positions */
       const x = (Math.random() - 0.5) * 30;
       const y = (Math.random() - 0.5) * 20;
       const z = (Math.random() - 0.5) * 10;
+      /* eslint-enable react-hooks/purity */
 
       pos[i * 3] = x;
       pos[i * 3 + 1] = y;

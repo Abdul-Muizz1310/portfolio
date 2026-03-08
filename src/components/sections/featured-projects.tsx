@@ -16,7 +16,7 @@ export async function FeaturedProjects() {
       <section className="max-w-[1200px] mx-auto px-4 sm:px-8 py-20">
         <SectionHeader command="~/featured-projects" />
         <p className="mt-8 font-mono text-foreground-muted">
-          // Error fetching repositories. Please try again later.
+          {"// Error fetching repositories. Please try again later."}
         </p>
       </section>
     );

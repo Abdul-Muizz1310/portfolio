@@ -28,6 +28,7 @@ export function TerminalTyper({
 
   useEffect(() => {
     if (allDone || currentCommandIndex >= commands.length) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- Intentional: finalize typing animation state
       setAllDone(true);
       return;
     }

@@ -22,6 +22,7 @@ export function Navigation() {
       const prefersDark = window.matchMedia(
         "(prefers-color-scheme: dark)"
       ).matches;
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- Syncing DOM class with React state
       setIsDark(prefersDark);
       html.classList.toggle("dark", prefersDark);
 
@@ -34,6 +35,7 @@ export function Navigation() {
       return () => mediaQuery.removeEventListener("change", handler);
     } else {
       const dark = theme === "dark";
+       
       setIsDark(dark);
       html.classList.toggle("dark", dark);
     }

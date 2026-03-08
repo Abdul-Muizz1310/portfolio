@@ -42,6 +42,7 @@ export function KonamiTerminal() {
   // Focus input when terminal opens
   useEffect(() => {
     if (isActive) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- Intentional: reset terminal state on activation
       setLines([
         {
           type: "output",
@@ -49,6 +50,7 @@ export function KonamiTerminal() {
             "Secret terminal unlocked! Type 'help' for available commands.",
         },
       ]);
+       
       setInput("");
       setTimeout(() => inputRef.current?.focus(), 100);
     }
@@ -195,20 +197,29 @@ export function KonamiTerminal() {
 }
 
 /** Simple matrix rain effect using CSS animation */
+const MATRIX_COLUMNS = 40;
+const MATRIX_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*";
+
+// Pre-compute random values outside component to satisfy React Compiler purity rules
+function generateMatrixData() {
+  return Array.from({ length: MATRIX_COLUMNS }, (_, i) => ({
+    left: `${(i / MATRIX_COLUMNS) * 100}%`,
+    delay: `${Math.random() * 2}s`,
+    duration: `${1.5 + Math.random() * 2}s`,
+    text: Array.from(
+      { length: 20 },
+      () => MATRIX_CHARS[Math.floor(Math.random() * MATRIX_CHARS.length)]
+    ).join("\n"),
+  }));
+}
+
 function MatrixRain() {
-  const columns = 40;
-  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*";
+  const [columnData] = useState(generateMatrixData);
 
   return (
     <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
-      {Array.from({ length: columns }).map((_, i) => {
-        const left = `${(i / columns) * 100}%`;
-        const delay = `${Math.random() * 2}s`;
-        const duration = `${1.5 + Math.random() * 2}s`;
-        const text = Array.from(
-          { length: 20 },
-          () => chars[Math.floor(Math.random() * chars.length)]
-        ).join("\n");
+      {columnData.map((col, i) => {
+        const { left, delay, duration, text } = col;
 
         return (
           <span

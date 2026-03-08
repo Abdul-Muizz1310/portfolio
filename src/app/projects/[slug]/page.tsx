@@ -40,7 +40,7 @@ export default async function ProjectDetailPage({
       <>
         <div className="mx-auto max-w-[1200px] px-4 py-20 sm:px-8">
           <p className="font-mono text-foreground-muted">
-            // Repository not found
+            {"// Repository not found"}
           </p>
         </div>
       </>
@@ -156,7 +156,7 @@ export default async function ProjectDetailPage({
                 </div>
               ) : (
                 <p className="text-foreground-faint">
-                  // No README available
+                  {"// No README available"}
                 </p>
               )}
             </CodeBlock>

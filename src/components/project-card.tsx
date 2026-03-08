@@ -44,7 +44,7 @@ export function ProjectCard({ repo }: ProjectCardProps) {
         <div className="p-4">
           {/* Description as code comment */}
           <p className="font-mono text-[0.875rem] text-foreground-muted">
-            // {repo.description ?? "No description provided"}
+            {"// "}{repo.description ?? "No description provided"}
           </p>
 
           {/* Topics */}

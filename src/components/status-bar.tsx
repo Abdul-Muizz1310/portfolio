@@ -20,7 +20,9 @@ export function StatusBar() {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- Intentional: hydration-safe mounting pattern
     setMounted(true);
+     
     setTime(formatTime());
     const interval = setInterval(() => {
       setTime(formatTime());

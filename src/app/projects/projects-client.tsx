@@ -43,7 +43,7 @@ export function ProjectsClient({ repos }: ProjectsClientProps) {
         </div>
       ) : (
         <p className="mt-8 font-mono text-[0.875rem] text-foreground-faint">
-          // No projects found
+          {"// No projects found"}
         </p>
       )}
     </div>
