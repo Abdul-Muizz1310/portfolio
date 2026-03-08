@@ -3,6 +3,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { Space_Grotesk } from "next/font/google";
 import { Navigation } from "@/components/navigation";
 import { StatusBar } from "@/components/status-bar";
+import { CustomCursor } from "@/components/custom-cursor";
+import { KonamiTerminal } from "@/components/konami-terminal";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -43,6 +45,8 @@ export default function RootLayout({
         >
           Skip to content
         </a>
+        <CustomCursor />
+        <KonamiTerminal />
         <Navigation />
         <main id="main-content" className="min-h-screen pt-16 pb-7">
           {children}
