@@ -140,14 +140,23 @@ export default async function ProjectDetailPage({
                           {children}
                         </blockquote>
                       ),
-                      img: ({ src, alt }) => (
-                        // eslint-disable-next-line @next/next/no-img-element
-                        <img
-                          src={src}
-                          alt={alt ?? ""}
-                          className="my-3 max-w-full rounded-md"
-                        />
-                      ),
+                      img: ({ src, alt }) => {
+                        if (!src || typeof src !== "string") return null;
+                        const isValidSrc =
+                          src.startsWith("https://") ||
+                          src.startsWith("http://") ||
+                          src.startsWith("/") ||
+                          src.startsWith("./");
+                        if (!isValidSrc) return null;
+                        return (
+                          // eslint-disable-next-line @next/next/no-img-element
+                          <img
+                            src={src}
+                            alt={alt || "Project image"}
+                            className="my-3 max-w-full rounded-md"
+                          />
+                        );
+                      },
                       hr: () => <hr className="my-6 border-border" />,
                     }}
                   >

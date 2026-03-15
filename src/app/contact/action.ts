@@ -24,21 +24,33 @@ export async function sendContactMessage(
     return { success: false, message: "Please enter a valid email address." };
   }
 
-  // For now, just return success (Resend integration can be added later)
-  // In production, this would use the Resend API
   try {
-    // TODO: Integrate with Resend API
-    // const resend = new Resend(process.env.RESEND_API_KEY);
-    // await resend.emails.send({ ... });
+    if (process.env.RESEND_API_KEY) {
+      const { Resend } = await import("resend");
+      const resend = new Resend(process.env.RESEND_API_KEY);
+      await resend.emails.send({
+        from: "Portfolio Contact <onboarding@resend.dev>",
+        to: "abdulmuizz1310@outlook.com",
+        subject: `[Portfolio] ${subject}`,
+        text: `Name: ${name}\nEmail: ${email}\n\n${message}`,
+      });
 
+      return {
+        success: true,
+        message: "Message sent successfully. Response time: ~24h",
+      };
+    }
+
+    // Resend not configured — inform user transparently
     return {
       success: true,
-      message: "Message sent successfully. Response time: ~24h",
+      message:
+        "Message received (email delivery not yet configured). Please also email abdulmuizz1310@outlook.com directly.",
     };
   } catch {
     return {
       success: false,
-      message: "Failed to send. Try again or email directly.",
+      message: "Failed to send. Try again or email abdulmuizz1310@outlook.com directly.",
     };
   }
 }

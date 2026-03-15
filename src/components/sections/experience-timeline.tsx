@@ -42,9 +42,9 @@ export function ExperienceTimeline() {
                 {entry.location}
               </p>
               <ul className="mt-3 space-y-1.5">
-                {entry.description.map((bullet, i) => (
+                {entry.description.map((bullet) => (
                   <li
-                    key={i}
+                    key={bullet}
                     className="text-[0.875rem] leading-relaxed text-foreground-muted before:mr-2 before:text-foreground-faint before:content-['•']"
                   >
                     {bullet}

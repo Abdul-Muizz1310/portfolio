@@ -207,7 +207,7 @@ body {
 @media (pointer: fine) {
   body.custom-cursor,
   body.custom-cursor * {
-    cursor: none !important;
+    cursor: none;
   }
 }
 

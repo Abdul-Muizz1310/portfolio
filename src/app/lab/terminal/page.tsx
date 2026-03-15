@@ -148,16 +148,14 @@ export default function TerminalPage() {
         </Link>
       </div>
 
+      {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */}
       <div
         ref={scrollRef}
-        role="textbox"
-        tabIndex={0}
         aria-label="Terminal output"
         className="bg-[#0A0A0F] min-h-screen pt-28 pb-7 px-4 sm:px-8 font-mono overflow-y-auto"
         onClick={() => inputRef.current?.focus()}
-        onKeyDown={() => inputRef.current?.focus()}
       >
-        <div className="max-w-[900px] mx-auto text-[0.875rem] leading-relaxed">
+        <div className="max-w-[900px] mx-auto text-[0.875rem] leading-relaxed" role="log" aria-live="polite">
           {output.map((line, i) => (
             <div key={i} className="mb-1">
               {line.type === "input" ? (

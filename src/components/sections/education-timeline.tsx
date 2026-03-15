@@ -53,9 +53,9 @@ export function EducationTimeline() {
                 </p>
                 {entry.highlights.length > 0 && (
                   <ul className="mt-3 space-y-1.5">
-                    {entry.highlights.map((highlight, i) => (
+                    {entry.highlights.map((highlight) => (
                       <li
-                        key={i}
+                        key={highlight}
                         className="text-[0.875rem] leading-relaxed text-foreground-muted before:mr-2 before:text-foreground-faint before:content-['•']"
                       >
                         {highlight}

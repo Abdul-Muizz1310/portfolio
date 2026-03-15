@@ -1,7 +1,7 @@
 "use client";
 
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { Suspense, useRef, useMemo } from "react";
+import { Suspense, useRef, useMemo, useEffect } from "react";
 import * as THREE from "three";
 
 const PARTICLE_COUNT = 120;
@@ -55,6 +55,13 @@ function Particles() {
     geo.setAttribute("position", new THREE.BufferAttribute(linePositions, 3));
     return geo;
   }, [linePositions]);
+
+  useEffect(() => {
+    return () => {
+      pointsGeometry.dispose();
+      linesGeometry.dispose();
+    };
+  }, [pointsGeometry, linesGeometry]);
 
   useFrame(() => {
     if (!pointsRef.current || !linesRef.current) return;

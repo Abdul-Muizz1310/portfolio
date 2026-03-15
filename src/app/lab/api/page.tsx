@@ -207,6 +207,8 @@ export default function ApiPage() {
                       <button
                         key={m}
                         onClick={() => setMethod(m)}
+                        aria-label={`HTTP method ${m}`}
+                        aria-pressed={method === m}
                         className={`px-2.5 py-1.5 rounded text-[0.75rem] font-mono border transition-colors ${
                           method === m
                             ? `${METHOD_COLORS[m]} border-current bg-current/10`

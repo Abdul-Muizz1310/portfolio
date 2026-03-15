@@ -1,4 +1,5 @@
 import { Children } from "react";
+import { cn } from "@/lib/utils";
 
 interface CodeBlockProps {
   filename: string;
@@ -17,7 +18,7 @@ export function CodeBlock({
 
   return (
     <div
-      className={`overflow-hidden rounded-lg border border-border bg-surface ${className ?? ""}`}
+      className={cn("overflow-hidden rounded-lg border border-border bg-surface", className)}
     >
       {/* Top bar */}
       <div className="flex h-8 items-center gap-2 border-b border-border bg-surface-hover px-3">

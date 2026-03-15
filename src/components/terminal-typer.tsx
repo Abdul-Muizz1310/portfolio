@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { cn } from "@/lib/utils";
 
 interface TerminalCommand {
   command: string;
@@ -69,7 +70,7 @@ export function TerminalTyper({
   ]);
 
   return (
-    <div className={`font-mono text-[0.875rem] leading-relaxed ${className ?? ""}`}>
+    <div className={cn("font-mono text-[0.875rem] leading-relaxed", className)} aria-live="polite" aria-atomic="false">
       {completedCommands.map((idx) => (
         <div key={`completed-${idx}`}>
           <div>

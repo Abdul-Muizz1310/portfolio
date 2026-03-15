@@ -8,6 +8,9 @@ import { ParticlePlaygroundScene } from "@/components/three/particle-playground-
 const COLORS = ["#22D3EE", "#3B82F6", "#8B5CF6"];
 const COLOR_NAMES = ["Cyan", "Blue", "Purple"];
 
+// Metadata must be in a separate file for client components
+// See layout or generateMetadata in parent routes
+
 export default function ParticlesPage() {
   const [count, setCount] = useState(120);
   const [colorIndex, setColorIndex] = useState(0);
@@ -41,10 +44,12 @@ export default function ParticlesPage() {
           <button
             onClick={() => setColorIndex((prev) => (prev + 1) % COLORS.length)}
             className="flex items-center gap-1.5 text-foreground-muted hover:text-foreground transition-colors"
+            aria-label={`Change particle color, current: ${COLOR_NAMES[colorIndex]}`}
           >
             <span
               className="h-3 w-3 rounded-full"
               style={{ backgroundColor: COLORS[colorIndex] }}
+              aria-hidden="true"
             />
             <span className="hidden sm:inline">{COLOR_NAMES[colorIndex]}</span>
           </button>
@@ -56,6 +61,7 @@ export default function ParticlesPage() {
                 ? "bg-accent-cyan-soft text-accent-cyan"
                 : "text-foreground-muted hover:text-foreground"
             }`}
+            aria-label={`Toggle gravity, current: ${gravity ? "on" : "off"}`}
           >
             Gravity {gravity ? "ON" : "OFF"}
           </button>
