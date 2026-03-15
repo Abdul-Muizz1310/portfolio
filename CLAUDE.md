@@ -1,8 +1,8 @@
-# Portfolio Project - CLAUDE.md
+# Portfolio Project — CLAUDE.md
 
 ## Project Overview
 
-Personal portfolio website built with Next.js 16, React 19, and modern web technologies. Features programmatic video generation with Remotion, 3D visuals with Three.js, and polished UI/UX.
+Personal portfolio website for Abdul-Muizz built with Next.js 16, React 19, and modern web technologies. Features interactive 3D particle fields with Three.js, terminal-style animations, and a full experiments lab.
 
 ## Tech Stack
 
@@ -10,22 +10,22 @@ Personal portfolio website built with Next.js 16, React 19, and modern web techn
 |---|---|---|
 | **Next.js 16** (App Router) | Framework, SSR, routing | https://nextjs.org/docs |
 | **React 19** | UI library (with React Compiler) | https://react.dev/reference/react |
-| **TypeScript 5** | Type safety | https://www.typescriptlang.org/docs |
+| **TypeScript 5** | Type safety (strict mode) | https://www.typescriptlang.org/docs |
 | **Tailwind CSS 4** | Utility-first styling | https://tailwindcss.com/docs |
 | **ShadCN/UI** | Component library | https://ui.shadcn.com/docs |
 | **Zustand** | State management | https://zustand.docs.pmnd.rs/getting-started/introduction |
 | **Three.js / R3F** | 3D graphics | https://r3f.docs.pmnd.rs/getting-started/introduction |
-| **Remotion** | Programmatic video | https://www.remotion.dev/docs |
 | **Framer Motion** | Animations | https://motion.dev/docs |
+| **Lucide React** | Icons | https://lucide.dev/docs |
+| **Resend** | Email (contact form) | https://resend.com/docs |
 
 ## Documentation Lookup
 
 **When unsure about any API, pattern, or feature — ALWAYS consult the official docs before guessing.**
 
-Use the `context7` MCP tool (`resolve-library-id` then `query-docs`) or `WebFetch` to look up:
+Use the `context7` MCP tool (`resolve-library-id` then `query-docs`), `WebFetch`, or `WebSearch` to look up:
 
 - **Next.js**: https://nextjs.org/docs — App Router, Server Components, Server Actions, metadata, routing
-- **Remotion**: https://www.remotion.dev/docs — compositions, sequences, animations, rendering
 - **Three.js / R3F**: https://r3f.docs.pmnd.rs — Canvas, meshes, materials, hooks
 - **Zustand**: https://zustand.docs.pmnd.rs — stores, slices, middleware
 - **ShadCN**: https://ui.shadcn.com/docs — component installation, theming, variants
@@ -34,23 +34,112 @@ Use the `context7` MCP tool (`resolve-library-id` then `query-docs`) or `WebFetc
 
 Never hallucinate APIs. If you don't know the exact API, look it up.
 
+## Architecture
+
+### Server-First Approach
+
+- Pages use Next.js App Router with Server Components by default
+- Client components (`"use client"`) only for interactivity (state, effects, event handlers, browser APIs)
+- Server Actions for mutations (e.g., contact form in `src/app/contact/action.ts`)
+- No API routes unless needed for external consumers
+
+### Data Sources
+
+| Source | Integration | Used In |
+|---|---|---|
+| GitHub API | `src/lib/github.ts` | Projects gallery, project detail pages |
+| Dev.to API | `src/lib/devto.ts` | Blog page |
+| LinkedIn Articles | `src/lib/linkedin-articles.ts` | Blog page (LinkedIn section) |
+| Resume Data | `src/lib/resume-data.ts` | About, Resume pages |
+| Services Data | `src/lib/services.ts` | Services page |
+| Testimonials Data | `src/lib/testimonials.ts` | Home page testimonials |
+
+### Interactive Features
+
+| Feature | Files |
+|---|---|
+| 3D Particle Field | `src/components/three/particle-field.tsx` |
+| Particle Playground | `src/components/three/particle-playground-scene.tsx` |
+| Custom Cursor | `src/hooks/use-cursor.ts` → `src/components/custom-cursor.tsx` |
+| Konami Code Easter Egg | `src/hooks/use-konami.ts` → `src/components/konami-terminal.tsx` |
+| Terminal Typer | `src/components/terminal-typer.tsx` |
+| Dark/Light Theme | `src/stores/theme-store.ts` |
+
 ## Project Structure
 
 ```
 src/
-├── app/              # Next.js App Router pages and layouts
-│   ├── layout.tsx    # Root layout
-│   ├── page.tsx      # Home page
-│   └── globals.css   # Global styles (Tailwind)
-├── components/       # Reusable React components
-│   ├── ui/           # ShadCN/UI primitives
-│   ├── sections/     # Page sections (hero, about, projects, etc.)
-│   └── three/        # Three.js/R3F components
-├── lib/              # Utilities, helpers, constants
-├── hooks/            # Custom React hooks
-├── stores/           # Zustand stores
-├── types/            # Shared TypeScript types
-└── remotion/         # Remotion compositions and video components
+├── app/                        # Next.js App Router pages and layouts
+│   ├── layout.tsx              # Root layout (nav, cursor, status bar, konami)
+│   ├── page.tsx                # Home (hero, stack, projects, testimonials, CTA)
+│   ├── template.tsx            # App template (page transition animations)
+│   ├── globals.css             # Global styles (Tailwind)
+│   ├── robots.ts               # Robots.txt generation
+│   ├── sitemap.ts              # Sitemap generation
+│   ├── about/page.tsx          # Bio, experience, education, values
+│   ├── blog/page.tsx           # Dev.to + LinkedIn articles
+│   ├── contact/                # Contact form (server action + client component)
+│   ├── lab/                    # Experiments hub
+│   │   ├── ai-chat/            # AI chat playground
+│   │   ├── api/                # API playground
+│   │   ├── frontend/           # Frontend showcase
+│   │   ├── particles/          # Particle playground (3D)
+│   │   ├── scraper/            # Web scraper visualizer
+│   │   └── terminal/           # Terminal simulator
+│   ├── projects/               # GitHub project gallery + detail pages
+│   ├── resume/page.tsx         # Resume as styled code block
+│   └── services/page.tsx       # Service offerings
+│
+├── components/
+│   ├── ui/                     # ShadCN/UI primitives (button.tsx)
+│   ├── sections/               # Page sections
+│   │   ├── hero.tsx            # Hero with particle field + terminal typer
+│   │   ├── featured-projects.tsx
+│   │   ├── testimonials.tsx
+│   │   ├── home-cta.tsx
+│   │   ├── uses-stack.tsx
+│   │   ├── experience-timeline.tsx
+│   │   ├── education-timeline.tsx
+│   │   ├── values.tsx
+│   │   ├── blog-entry.tsx
+│   │   ├── linkedin-section.tsx
+│   │   ├── service-card.tsx
+│   │   ├── lab-card.tsx
+│   │   └── project-filter.tsx
+│   ├── three/                  # Three.js/R3F components
+│   │   ├── particle-field.tsx
+│   │   └── particle-playground-scene.tsx
+│   ├── code-block.tsx          # Syntax-highlighted code blocks
+│   ├── custom-cursor.tsx       # Custom pointer cursor
+│   ├── git-commit-card.tsx     # GitHub commit-style cards
+│   ├── konami-terminal.tsx     # Easter egg terminal
+│   ├── navigation.tsx          # Main navigation bar
+│   ├── project-card.tsx        # Project preview card
+│   ├── section-header.tsx      # Reusable section title
+│   ├── status-bar.tsx          # Bottom status bar
+│   └── terminal-typer.tsx      # Terminal-style text animation
+│
+├── hooks/
+│   ├── use-cursor.ts           # Custom cursor position tracking
+│   └── use-konami.ts           # Konami code detection
+│
+├── lib/
+│   ├── constants.ts            # App constants (site URL, nav links, etc.)
+│   ├── utils.ts                # Utility functions (cn, class merging)
+│   ├── github.ts               # GitHub API integration
+│   ├── devto.ts                # Dev.to API integration
+│   ├── linkedin-articles.ts    # LinkedIn articles data
+│   ├── resume-data.ts          # Resume/CV data
+│   ├── services.ts             # Services offerings data
+│   └── testimonials.ts         # Testimonials data
+│
+├── stores/
+│   └── theme-store.ts          # Dark/light theme state (Zustand)
+│
+└── types/
+    ├── blog.ts                 # Blog/article types
+    ├── github.ts               # GitHub API types
+    └── services.ts             # Services & testimonials types
 ```
 
 ## Path Alias
@@ -71,7 +160,7 @@ src/
 ### General
 - TypeScript strict mode — no `any` types, always define interfaces/types
 - Use `@/` path alias for all imports
-- Prefer Server Components by default; only use `"use client"` when needed (state, effects, event handlers, browser APIs)
+- Prefer Server Components by default; only use `"use client"` when needed
 - Keep components small and focused — extract logic into custom hooks
 - No default exports except for pages/layouts (Next.js requirement)
 
@@ -96,12 +185,6 @@ src/
 - Use `@react-three/drei` for common helpers (OrbitControls, Text, Environment)
 - Always add `Suspense` fallbacks around 3D scenes
 
-### Remotion
-- Compositions in `src/remotion/`
-- Use `useCurrentFrame()` and `interpolate()` for animations
-- Parametrize with Zod schemas
-- Keep video components pure — no side effects
-
 ### Next.js Patterns
 - App Router only — no Pages Router
 - Use `loading.tsx` for streaming/Suspense
@@ -111,35 +194,45 @@ src/
 - Image optimization with `next/image`
 - Font optimization with `next/font`
 
+## File Lookup & Search Permissions
+
+Claude has full access to read, search, and explore any file in this repository. When investigating issues or implementing features:
+
+- **Read any file** in the repo without restriction
+- **Search** with `Grep`, `Glob`, or `Agent` (Explore) across the entire codebase
+- **Web search** and **web fetch** for documentation lookups on any domain
+- **Run** `npm run build`, `npm run lint`, and other project scripts
+- **Use MCP tools**: context7 (docs), playwright (browser testing)
+
 ## Skills Reference
 
-This project has 13 installed skills in `.agents/skills/`. **Use the right skill for the right task.**
+This project has **15 installed skills** in `.agents/skills/`. Use the right skill for the right task.
 
 ### Frontend & UI Skills
 
 | Skill | When to Use |
 |---|---|
-| **`frontend-design`** (built-in) | Creating new pages, sections, or visual components. ALWAYS use this for any UI work. |
-| **`ui-ux-pro-max`** | Design system decisions — color palettes, typography, spacing, style selection. Use when choosing visual direction. |
-| **`frontend-responsive-design-standards`** | Ensuring responsive layouts. Use when building any layout or reviewing responsiveness. |
-| **`web-design-guidelines`** | Reviewing UI code for Vercel's Web Interface Guidelines compliance. Use for UI audits. |
+| **`frontend-design`** (built-in) | Creating new pages, sections, or visual components. ALWAYS use for any UI work. |
+| **`ui-ux-pro-max`** | Design system decisions — color palettes, typography, spacing, style selection. |
+| **`frontend-responsive-design-standards`** | Ensuring responsive layouts. Breakpoints, fluid layouts, touch targets. |
+| **`web-design-guidelines`** | Reviewing UI code for Vercel's Web Interface Guidelines compliance. UI audits. |
 
 ### React & Next.js Skills
 
 | Skill | When to Use |
 |---|---|
-| **`vercel-react-best-practices`** | Performance optimization — eliminating waterfalls, bundle size, re-renders, memoization. Use when optimizing or reviewing React code. |
-| **`nextjs-app-router-patterns`** | Server/Client Components, streaming, parallel routes, data fetching, caching. Use for any Next.js architecture decisions. |
-| **`react-components`** | Converting designs to modular React components with proper architecture. Use when building component systems. |
-| **`react-state-management`** | Zustand stores, state patterns, server vs client state. Use when adding or refactoring state. |
+| **`vercel-react-best-practices`** | Performance optimization — waterfalls, bundle size, re-renders, memoization. |
+| **`nextjs-app-router-patterns`** | Server/Client Components, streaming, parallel routes, data fetching, caching. |
+| **`react-components`** | Converting designs to modular React components with proper architecture. |
+| **`react-state-management`** | Zustand stores, state patterns, server vs client state decisions. |
 
 ### Remotion & 3D Skills
 
 | Skill | When to Use |
 |---|---|
-| **`remotion-best-practices`** | Any Remotion video work — compositions, animations, Three.js in video, audio, captions. ALWAYS use for Remotion tasks. |
+| **`remotion-best-practices`** | Any Remotion video work — compositions, animations, Three.js in video, audio, captions. |
 
-### Backend Skills (when needed)
+### Backend Skills
 
 | Skill | When to Use |
 |---|---|
@@ -148,10 +241,11 @@ This project has 13 installed skills in `.agents/skills/`. **Use the right skill
 | **`backend-development`** | General backend architecture and security. |
 | **`nextjs-supabase-auth`** | If/when Supabase auth is added. |
 
-### Meta Skills
+### Template & Meta Skills
 
 | Skill | When to Use |
 |---|---|
+| **`next-forge`** | Production-grade Next.js SaaS template patterns (Turborepo, monorepo). |
 | **`find-skills`** | Discovering and installing new skills from the ecosystem. |
 
 ## Skill Usage Rules
@@ -163,8 +257,8 @@ This project has 13 installed skills in `.agents/skills/`. **Use the right skill
 5. **Before adding/changing state** → invoke `react-state-management` skill
 6. **Before Next.js architecture decisions** → invoke `nextjs-app-router-patterns` skill
 7. **When building responsive layouts** → invoke `frontend-responsive-design-standards` skill
-8. **When unsure about an API or pattern** → use `context7` MCP or `WebFetch` to check docs
-9. **Always brainstorm before creative work** → invoke `brainstorming` skill first
+8. **When unsure about an API or pattern** → use `context7` MCP, `WebFetch`, or `WebSearch` to check docs
+9. **When auditing UI quality** → invoke `web-design-guidelines` skill
 
 ## Quality Checklist
 

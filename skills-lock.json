@@ -26,6 +26,11 @@
       "sourceType": "github",
       "computedHash": "25872a21881a950edc3db1f3329664d60405d539660ce05b3265db2de06a7dfd"
     },
+    "next-forge": {
+      "source": "vercel/next-forge",
+      "sourceType": "github",
+      "computedHash": "fafdfb8e58cfdd74d39d9f85e1ae9e1bcc9d1f71594ecc3c191b73776cc89c8d"
+    },
     "nextjs-app-router-patterns": {
       "source": "wshobson/agents",
       "sourceType": "github",
