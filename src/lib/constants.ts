@@ -6,7 +6,6 @@ export const SITE_CONFIG = {
   url: "https://abdul-muizz.dev",
   github: "https://github.com/Abdul-Muizz1310",
   linkedin: "https://www.linkedin.com/in/abdulmuizz1310/",
-  devto: "https://dev.to/abdulmuizz1310",
   email: "abdulmuizz1310@outlook.com",
 } as const;
 
@@ -14,15 +13,11 @@ export const NAV_LINKS = [
   { label: "Home", href: "/", path: "~" },
   { label: "About", href: "/about", path: "~/about" },
   { label: "Projects", href: "/projects", path: "~/projects" },
-  { label: "Services", href: "/services", path: "~/services" },
-  { label: "Blog", href: "/blog", path: "~/blog" },
-  { label: "Lab", href: "/lab", path: "~/lab" },
   { label: "Resume", href: "/resume", path: "~/resume" },
   { label: "Contact", href: "/contact", path: "~/contact" },
 ] as const;
 
 export const GITHUB_USERNAME = "Abdul-Muizz1310";
-export const DEVTO_USERNAME = "abdulmuizz1310";
 
 export const LANGUAGE_EXTENSIONS: Record<string, string> = {
   Python: ".py",

@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-Personal portfolio website for Abdul-Muizz built with Next.js 16, React 19, and modern web technologies. Features interactive 3D particle fields with Three.js, terminal-style animations, and a full experiments lab.
+Personal portfolio website for Abdul-Muizz built with Next.js 16, React 19, and modern web technologies. Features an interactive 3D particle field with Three.js, terminal-style UI throughout, dark-only theme, and comprehensive test coverage (235 tests, 99%+ line coverage).
 
 ## Tech Stack
 
@@ -13,11 +13,13 @@ Personal portfolio website for Abdul-Muizz built with Next.js 16, React 19, and 
 | **TypeScript 5** | Type safety (strict mode) | https://www.typescriptlang.org/docs |
 | **Tailwind CSS 4** | Utility-first styling | https://tailwindcss.com/docs |
 | **ShadCN/UI** | Component library | https://ui.shadcn.com/docs |
-| **Zustand** | State management | https://zustand.docs.pmnd.rs/getting-started/introduction |
 | **Three.js / R3F** | 3D graphics | https://r3f.docs.pmnd.rs/getting-started/introduction |
 | **Framer Motion** | Animations | https://motion.dev/docs |
 | **Lucide React** | Icons | https://lucide.dev/docs |
 | **Resend** | Email (contact form) | https://resend.com/docs |
+| **Boneyard** | Skeleton loading | https://boneyard.vercel.app/overview |
+| **Vitest** | Unit/integration testing | https://vitest.dev |
+| **React Testing Library** | Component testing | https://testing-library.com/docs/react-testing-library/intro |
 
 ## Documentation Lookup
 
@@ -27,10 +29,10 @@ Use the `context7` MCP tool (`resolve-library-id` then `query-docs`), `WebFetch`
 
 - **Next.js**: https://nextjs.org/docs — App Router, Server Components, Server Actions, metadata, routing
 - **Three.js / R3F**: https://r3f.docs.pmnd.rs — Canvas, meshes, materials, hooks
-- **Zustand**: https://zustand.docs.pmnd.rs — stores, slices, middleware
 - **ShadCN**: https://ui.shadcn.com/docs — component installation, theming, variants
-- **Tailwind v4**: https://tailwindcss.com/docs — utilities, theme config, dark mode
+- **Tailwind v4**: https://tailwindcss.com/docs — utilities, theme config
 - **Framer Motion**: https://motion.dev/docs — motion components, variants, gestures
+- **Vitest**: https://vitest.dev — test configuration, mocking, coverage
 
 Never hallucinate APIs. If you don't know the exact API, look it up.
 
@@ -43,27 +45,28 @@ Never hallucinate APIs. If you don't know the exact API, look it up.
 - Server Actions for mutations (e.g., contact form in `src/app/contact/action.ts`)
 - No API routes unless needed for external consumers
 
+### Dark Mode Only
+
+The site uses a dark-only theme. There is no light mode toggle. The `<html>` element has `className="dark"` hardcoded in `src/app/layout.tsx`. All CSS variables in `globals.css` use dark theme values directly on `:root`.
+
 ### Data Sources
 
 | Source | Integration | Used In |
 |---|---|---|
 | GitHub API | `src/lib/github.ts` | Projects gallery, project detail pages |
-| Dev.to API | `src/lib/devto.ts` | Blog page |
-| LinkedIn Articles | `src/lib/linkedin-articles.ts` | Blog page (LinkedIn section) |
-| Resume Data | `src/lib/resume-data.ts` | About, Resume pages |
-| Services Data | `src/lib/services.ts` | Services page |
-| Testimonials Data | `src/lib/testimonials.ts` | Home page testimonials |
+| Resume Data | `src/lib/resume-data.ts` | About, Resume pages, skills |
 
 ### Interactive Features
 
 | Feature | Files |
 |---|---|
 | 3D Particle Field | `src/components/three/particle-field.tsx` |
-| Particle Playground | `src/components/three/particle-playground-scene.tsx` |
+| Skills Showcase | `src/components/sections/skills-showcase.tsx` |
+| Interactive Terminal | `src/components/sections/home-terminal.tsx` |
 | Custom Cursor | `src/hooks/use-cursor.ts` → `src/components/custom-cursor.tsx` |
 | Konami Code Easter Egg | `src/hooks/use-konami.ts` → `src/components/konami-terminal.tsx` |
 | Terminal Typer | `src/components/terminal-typer.tsx` |
-| Dark/Light Theme | `src/stores/theme-store.ts` |
+| Skeleton Loading | `src/lib/boneyard.ts` → `src/app/projects/loading.tsx` |
 
 ## Project Structure
 
@@ -71,75 +74,61 @@ Never hallucinate APIs. If you don't know the exact API, look it up.
 src/
 ├── app/                        # Next.js App Router pages and layouts
 │   ├── layout.tsx              # Root layout (nav, cursor, status bar, konami)
-│   ├── page.tsx                # Home (hero, stack, projects, testimonials, CTA)
-│   ├── template.tsx            # App template (page transition animations)
-│   ├── globals.css             # Global styles (Tailwind)
+│   ├── page.tsx                # Home (hero, skills, stack, projects, terminal, CTA)
+│   ├── template.tsx            # Page transition animations
+│   ├── globals.css             # Global styles (Tailwind, dark-only theme)
 │   ├── robots.ts               # Robots.txt generation
 │   ├── sitemap.ts              # Sitemap generation
-│   ├── about/page.tsx          # Bio, experience, education, values
-│   ├── blog/page.tsx           # Dev.to + LinkedIn articles
+│   ├── about/page.tsx          # Bio, experience, education, volunteer, values
 │   ├── contact/                # Contact form (server action + client component)
-│   ├── lab/                    # Experiments hub
-│   │   ├── ai-chat/            # AI chat playground
-│   │   ├── api/                # API playground
-│   │   ├── frontend/           # Frontend showcase
-│   │   ├── particles/          # Particle playground (3D)
-│   │   ├── scraper/            # Web scraper visualizer
-│   │   └── terminal/           # Terminal simulator
-│   ├── projects/               # GitHub project gallery + detail pages
-│   ├── resume/page.tsx         # Resume as styled code block
-│   └── services/page.tsx       # Service offerings
+│   ├── projects/               # GitHub project gallery + [slug] detail
+│   └── resume/page.tsx         # Resume as styled code block
 │
 ├── components/
 │   ├── ui/                     # ShadCN/UI primitives (button.tsx)
 │   ├── sections/               # Page sections
 │   │   ├── hero.tsx            # Hero with particle field + terminal typer
+│   │   ├── skills-showcase.tsx # Skills domain cards with tech tags
 │   │   ├── featured-projects.tsx
-│   │   ├── testimonials.tsx
+│   │   ├── home-terminal.tsx   # Interactive terminal emulator
 │   │   ├── home-cta.tsx
-│   │   ├── uses-stack.tsx
+│   │   ├── uses-stack.tsx      # Tech stack in package.json format
 │   │   ├── experience-timeline.tsx
 │   │   ├── education-timeline.tsx
+│   │   ├── volunteer-timeline.tsx
 │   │   ├── values.tsx
-│   │   ├── blog-entry.tsx
-│   │   ├── linkedin-section.tsx
-│   │   ├── service-card.tsx
-│   │   ├── lab-card.tsx
 │   │   └── project-filter.tsx
 │   ├── three/                  # Three.js/R3F components
-│   │   ├── particle-field.tsx
-│   │   └── particle-playground-scene.tsx
-│   ├── code-block.tsx          # Syntax-highlighted code blocks
+│   │   └── particle-field.tsx  # 200-particle field with gradient colors
+│   ├── code-block.tsx          # macOS-style code display
 │   ├── custom-cursor.tsx       # Custom pointer cursor
-│   ├── git-commit-card.tsx     # GitHub commit-style cards
-│   ├── konami-terminal.tsx     # Easter egg terminal
+│   ├── konami-terminal.tsx     # Easter egg terminal with Matrix rain
 │   ├── navigation.tsx          # Main navigation bar
 │   ├── project-card.tsx        # Project preview card
-│   ├── section-header.tsx      # Reusable section title
-│   ├── status-bar.tsx          # Bottom status bar
+│   ├── section-header.tsx      # Terminal-style section title
+│   ├── status-bar.tsx          # Bottom IDE-style status bar
 │   └── terminal-typer.tsx      # Terminal-style text animation
 │
 ├── hooks/
-│   ├── use-cursor.ts           # Custom cursor position tracking
-│   └── use-konami.ts           # Konami code detection
+│   ├── use-cursor.ts           # Custom cursor position tracking + lerp
+│   └── use-konami.ts           # Konami code sequence detection
 │
 ├── lib/
+│   ├── boneyard.ts             # Boneyard skeleton loading config
 │   ├── constants.ts            # App constants (site URL, nav links, etc.)
-│   ├── utils.ts                # Utility functions (cn, class merging)
-│   ├── github.ts               # GitHub API integration
-│   ├── devto.ts                # Dev.to API integration
-│   ├── linkedin-articles.ts    # LinkedIn articles data
-│   ├── resume-data.ts          # Resume/CV data
-│   ├── services.ts             # Services offerings data
-│   └── testimonials.ts         # Testimonials data
+│   ├── github.ts               # GitHub API integration (repos + README)
+│   ├── resume-data.ts          # Resume/CV data (experience, education, skills, volunteer)
+│   └── utils.ts                # Utility functions (cn, class merging)
 │
-├── stores/
-│   └── theme-store.ts          # Dark/light theme state (Zustand)
+├── types/
+│   └── github.ts               # GitHub API types
 │
-└── types/
-    ├── blog.ts                 # Blog/article types
-    ├── github.ts               # GitHub API types
-    └── services.ts             # Services & testimonials types
+└── __tests__/                  # Test suite (54 files, 235 tests)
+    ├── setup.ts                # Test environment setup (mocks for IntersectionObserver, matchMedia, ResizeObserver)
+    ├── app/                    # Page-level tests
+    ├── components/             # Component tests
+    ├── hooks/                  # Hook tests
+    └── lib/                    # Library/utility tests
 ```
 
 ## Path Alias
@@ -154,6 +143,16 @@ src/
 | `npm run build` | Production build |
 | `npm run start` | Start production server |
 | `npm run lint` | ESLint check |
+| `npm test` | Run tests (Vitest) |
+| `npm run test:watch` | Run tests in watch mode |
+| `npm run test:coverage` | Run tests with coverage report |
+
+## Environment Variables
+
+| Variable | Required | Purpose |
+|---|---|---|
+| `GITHUB_TOKEN` | Optional | Higher GitHub API rate limits (60/hr without) |
+| `RESEND_API_KEY` | Optional | Contact form email delivery (shows fallback message without) |
 
 ## Code Conventions
 
@@ -168,13 +167,13 @@ src/
 - Tailwind CSS utility classes only — no inline styles, no CSS modules
 - Use ShadCN/UI components as the base — extend with Tailwind, don't rewrite
 - Mobile-first responsive design (`sm:`, `md:`, `lg:`, `xl:`)
-- Use CSS variables for theme colors (ShadCN convention)
+- Dark-only theme — all CSS variables set on `:root` with dark values
+- Custom utilities: `gradient-text`, `gradient-bg`, `gradient-border`, `glass`
 - Animations: prefer Tailwind `animate-*` for simple, Framer Motion for complex
 
 ### State Management
 - **Local state**: `useState` / `useReducer` for component-scoped state
-- **Global state**: Zustand stores in `src/stores/` with slices pattern
-- **Server state**: Next.js Server Components + `fetch` with caching
+- **Server state**: Next.js Server Components + `fetch` with ISR caching
 - **URL state**: `useSearchParams` for filterable/shareable state
 - Never put server-fetchable data in global state
 
@@ -182,17 +181,47 @@ src/
 - All 3D components go in `src/components/three/`
 - Wrap `<Canvas>` in a client component with `"use client"`
 - Use `@react-three/fiber` hooks (`useFrame`, `useThree`) — not raw Three.js
-- Use `@react-three/drei` for common helpers (OrbitControls, Text, Environment)
+- Use `useRef` for mutable data in animation loops (not `useMemo`)
 - Always add `Suspense` fallbacks around 3D scenes
 
 ### Next.js Patterns
 - App Router only — no Pages Router
-- Use `loading.tsx` for streaming/Suspense
+- Use `loading.tsx` with Boneyard `<Skeleton>` for streaming/Suspense
 - Use `error.tsx` for error boundaries
 - Server Actions for mutations — no API routes unless needed for external consumers
 - Metadata API for SEO (`generateMetadata`)
 - Image optimization with `next/image`
 - Font optimization with `next/font`
+
+### Testing
+- Vitest + React Testing Library + jsdom
+- Test files in `src/__tests__/` mirroring source structure
+- Mock external dependencies (next/navigation, framer-motion, next/image, next/link)
+- Server components tested by calling the async function directly
+- Hooks tested with `renderHook` from `@testing-library/react`
+- Coverage target: 99%+ lines, 98%+ statements
+
+## Testing
+
+The project has comprehensive test coverage:
+
+- **54 test files** with **235 tests**
+- **99.8% line coverage**, **98.87% statement coverage**, **99.39% function coverage**
+- Tests cover: utilities, data models, API integrations, all components, all pages, hooks
+- Run with `npm test` or `npm run test:coverage`
+
+### Test Configuration
+
+- Config: `vitest.config.ts`
+- Setup: `src/__tests__/setup.ts` (mocks IntersectionObserver, matchMedia, ResizeObserver)
+- Coverage excludes: `src/__tests__/`, loading/error/layout files, Three.js components, type-only files
+
+## CI/CD
+
+GitHub Actions workflow at `.github/workflows/ci.yml`:
+- **Triggers**: push to `dev`, PRs targeting `dev`
+- **Pipeline**: lint → build → tests
+- **Node**: v20 with npm cache
 
 ## File Lookup & Search Permissions
 
@@ -201,7 +230,7 @@ Claude has full access to read, search, and explore any file in this repository.
 - **Read any file** in the repo without restriction
 - **Search** with `Grep`, `Glob`, or `Agent` (Explore) across the entire codebase
 - **Web search** and **web fetch** for documentation lookups on any domain
-- **Run** `npm run build`, `npm run lint`, and other project scripts
+- **Run** `npm run build`, `npm run lint`, `npm test`, and other project scripts
 - **Use MCP tools**: context7 (docs), playwright (browser testing)
 
 ## Skills Reference
@@ -224,7 +253,7 @@ This project has **15 installed skills** in `.agents/skills/`. Use the right ski
 | **`vercel-react-best-practices`** | Performance optimization — waterfalls, bundle size, re-renders, memoization. |
 | **`nextjs-app-router-patterns`** | Server/Client Components, streaming, parallel routes, data fetching, caching. |
 | **`react-components`** | Converting designs to modular React components with proper architecture. |
-| **`react-state-management`** | Zustand stores, state patterns, server vs client state decisions. |
+| **`react-state-management`** | State patterns, server vs client state decisions. |
 
 ### Remotion & 3D Skills
 
@@ -264,7 +293,8 @@ This project has **15 installed skills** in `.agents/skills/`. Use the right ski
 
 Before marking any task as complete:
 - [ ] TypeScript compiles with no errors (`npm run build`)
-- [ ] No ESLint warnings (`npm run lint`)
+- [ ] No ESLint errors (`npm run lint`)
+- [ ] All tests pass (`npm test`)
 - [ ] Responsive on mobile, tablet, desktop
 - [ ] Server Components used where possible
 - [ ] No unnecessary `"use client"` directives

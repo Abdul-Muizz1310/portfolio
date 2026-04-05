@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { NAV_LINKS } from "@/lib/constants";
-import { useThemeStore } from "@/stores/theme-store";
 
 function formatTime(): string {
   return new Date().toLocaleTimeString("en-US", {
@@ -15,14 +14,12 @@ function formatTime(): string {
 
 export function StatusBar() {
   const pathname = usePathname();
-  const { theme } = useThemeStore();
   const [time, setTime] = useState(formatTime);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect -- Intentional: hydration-safe mounting pattern
     setMounted(true);
-     
     setTime(formatTime());
     const interval = setInterval(() => {
       setTime(formatTime());
@@ -32,15 +29,6 @@ export function StatusBar() {
 
   const currentNav = NAV_LINKS.find((link) => link.href === pathname);
   const currentPath = currentNav?.path ?? "~";
-
-  const isDark =
-    theme === "dark" ||
-    (theme === "system" &&
-      mounted &&
-      typeof window !== "undefined" &&
-      window.matchMedia("(prefers-color-scheme: dark)").matches);
-
-  const themeIndicator = isDark ? "☾ dark" : "☀ light";
 
   return (
     <footer className="fixed bottom-0 left-0 right-0 z-50 flex h-7 items-center justify-between border-t border-border bg-surface px-4 font-mono text-[0.75rem] text-foreground-muted" role="contentinfo" aria-label="Status bar">
@@ -53,8 +41,7 @@ export function StatusBar() {
 
       {/* Right side */}
       <div className="flex items-center gap-1">
-        <span className="hidden sm:inline">UTF-8 · </span>
-        <span>{themeIndicator}</span>
+        <span className="hidden sm:inline">UTF-8</span>
         <span className="hidden sm:inline"> · {mounted ? time : ""}</span>
         <span className="animate-pulse" aria-hidden="true"> ▊</span>
       </div>

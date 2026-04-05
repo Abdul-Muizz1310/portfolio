@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { SectionHeader } from "@/components/section-header";
 import { ExperienceTimeline } from "@/components/sections/experience-timeline";
 import { EducationTimeline } from "@/components/sections/education-timeline";
+import { VolunteerTimeline } from "@/components/sections/volunteer-timeline";
 import { Values } from "@/components/sections/values";
 import { PERSONAL_INFO } from "@/lib/resume-data";
 
@@ -17,20 +18,23 @@ export default function AboutPage() {
 
       {/* Intro */}
       <div className="mt-8 max-w-3xl space-y-4 text-lg leading-relaxed text-foreground-muted">
-        <p>{PERSONAL_INFO.summary}</p>
         <p>
-          With a Bachelor&apos;s in Software Engineering from the National
-          University of Sciences and Technology, I bring a strong foundation in
-          algorithms, system design, and modern development practices. My
-          experience spans building AI-powered platforms with LangGraph agents,
-          scalable microservice architectures, and polished full-stack web
-          applications.
+          I&apos;m a full-stack developer who has turned his love for tech
+          (somehow) into a full-time career. I focus on building robust and
+          secure systems that thrive in real-world complexity. I firmly believe
+          that perfection is not always the correct answer. It is always better
+          to prioritize clarity, maintainability, and thoughtful tradeoffs over
+          unnecessary complexity.
         </p>
         <p>
-          When I&apos;m not shipping production code, you&apos;ll find me
-          exploring the latest in LLM tooling, contributing to open-source
-          projects, or experimenting with creative dev tools like Remotion and
-          Three.js.
+          My engineering philosophy centers on building functional and resilient
+          solutions. Create systems that do not crack under edge cases but
+          evolve with them. Each project should reflect a commitment to clean
+          design, structured thinking, and problem-solving with purpose.
+        </p>
+        <p>
+          A game of chess or Dota 2 would be preferable if you want to know
+          more about me.
         </p>
       </div>
 
@@ -47,6 +51,14 @@ export default function AboutPage() {
         <SectionHeader command="$ git branch -a" />
         <div className="mt-8">
           <EducationTimeline />
+        </div>
+      </section>
+
+      {/* Volunteer Experience */}
+      <section className="mt-16">
+        <SectionHeader command="$ git log --all --community" />
+        <div className="mt-8">
+          <VolunteerTimeline />
         </div>
       </section>
 

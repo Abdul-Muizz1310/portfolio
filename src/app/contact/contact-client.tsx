@@ -1,7 +1,7 @@
 "use client";
 
 import { useActionState } from "react";
-import { Github, Linkedin, FileText, Mail } from "lucide-react";
+import { Github, Linkedin, Mail } from "lucide-react";
 import { SectionHeader } from "@/components/section-header";
 import { sendContactMessage } from "@/app/contact/action";
 import { SITE_CONFIG } from "@/lib/constants";
@@ -19,12 +19,6 @@ const SOCIAL_LINKS = [
     icon: Linkedin,
     label: "linkedin.com/in/abdulmuizz1310",
     href: SITE_CONFIG.linkedin,
-    external: true,
-  },
-  {
-    icon: FileText,
-    label: "dev.to/abdulmuizz1310",
-    href: SITE_CONFIG.devto,
     external: true,
   },
   {

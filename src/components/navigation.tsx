@@ -1,53 +1,16 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { Sun, Moon, Menu, X, Home } from "lucide-react";
+import { Menu, X, Home } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { NAV_LINKS } from "@/lib/constants";
-import { useThemeStore } from "@/stores/theme-store";
 
 export function Navigation() {
   const pathname = usePathname();
-  const { theme, setTheme } = useThemeStore();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [isDark, setIsDark] = useState(false);
-
-  useEffect(() => {
-    const html = document.documentElement;
-
-    if (theme === "system") {
-      const prefersDark = window.matchMedia(
-        "(prefers-color-scheme: dark)"
-      ).matches;
-      // eslint-disable-next-line react-hooks/set-state-in-effect -- Syncing DOM class with React state
-      setIsDark(prefersDark);
-      html.classList.toggle("dark", prefersDark);
-
-      const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-      const handler = (e: MediaQueryListEvent) => {
-        setIsDark(e.matches);
-        html.classList.toggle("dark", e.matches);
-      };
-      mediaQuery.addEventListener("change", handler);
-      return () => mediaQuery.removeEventListener("change", handler);
-    } else {
-      const dark = theme === "dark";
-       
-      setIsDark(dark);
-      html.classList.toggle("dark", dark);
-    }
-  }, [theme]);
-
-  function toggleTheme() {
-    if (isDark) {
-      setTheme("light");
-    } else {
-      setTheme("dark");
-    }
-  }
 
   function closeMobileMenu() {
     setMobileMenuOpen(false);
@@ -92,36 +55,20 @@ export function Navigation() {
           })}
         </div>
 
-        {/* Right side: Theme toggle + Mobile hamburger */}
-        <div className="flex items-center gap-2">
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={toggleTheme}
-            aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
-          >
-            {isDark ? (
-              <Sun className="size-4" />
-            ) : (
-              <Moon className="size-4" />
-            )}
-          </Button>
-
-          {/* Mobile hamburger */}
-          <Button
-            variant="ghost"
-            size="icon"
-            className="md:hidden"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
-          >
-            {mobileMenuOpen ? (
-              <X className="size-4" />
-            ) : (
-              <Menu className="size-4" />
-            )}
-          </Button>
-        </div>
+        {/* Mobile hamburger */}
+        <Button
+          variant="ghost"
+          size="icon"
+          className="md:hidden"
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+        >
+          {mobileMenuOpen ? (
+            <X className="size-4" />
+          ) : (
+            <Menu className="size-4" />
+          )}
+        </Button>
       </div>
 
       {/* Mobile dropdown menu */}

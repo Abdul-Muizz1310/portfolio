@@ -134,9 +134,10 @@ export const EXTRACURRICULARS: Extracurricular[] = [
     startDate: "2021",
     endDate: "2022",
     description: [
-      "Faced low student engagement in tech initiatives; spearheaded a week-long innovation event with hands-on workshops at NUST, resulting in 100+ students actively participating and increasing overall engagement.",
-      "Tasked with launching NUST's first hackathon as VP Operations for CodeFest'21, led cross-functional teams to deliver smooth on-ground execution for 300+ participants.",
-      "Addressed challenges in coordinating diverse event formats by managing logistics and communication for both virtual and in-person events, ensuring seamless, high-impact experiences across all audiences.",
+      "Spearheaded a week-long event showcasing innovative technologies, leading workshops and hands-on projects to inspire creativity and practical learning among participants.",
+      "Served as VP Operations for CodeFest'21, NUST's inaugural hackathon, leading cross-functional teams to execute seamless on-ground operations and ensure a memorable participant experience.",
+      "Appointed as Non-Technical Program Manager for GDSC NUST, responsible for leading non-technical teams and creatively promoting a passion for technology among students.",
+      "Managed all logistics and coordination for both on-ground and online events, demonstrating strong organizational leadership to ensure smooth, impactful event execution.",
     ],
   },
   {
@@ -147,8 +148,8 @@ export const EXTRACURRICULARS: Extracurricular[] = [
     startDate: "March 2022",
     endDate: "May 2022",
     description: [
-      "Managed the Cultural Carnival, Book Bazaar, Art Expo, and Qawali night for NLF 3.0 — a national-level 3-day literary festival featuring seminars, workshops, and interactive sessions.",
-      "Coordinated across multiple teams and wings to ensure smooth execution of diverse event formats for a large-scale audience.",
+      "NLC hosted NLF 3.0 — a national-level 3-day literary festival aimed at helping the young generation connect with their culture, art, and traditions through seminars, talks, workshops, and interactive sessions.",
+      "Managed and arranged the Cultural Carnival, Book Bazaar, Art Expo, and Qawali night while coordinating with different teams and wings to ensure smooth event execution.",
     ],
   },
 ];

@@ -5,6 +5,7 @@ import { Navigation } from "@/components/navigation";
 import { StatusBar } from "@/components/status-bar";
 import { CustomCursor } from "@/components/custom-cursor";
 import { KonamiTerminal } from "@/components/konami-terminal";
+import "@/lib/boneyard";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -35,7 +36,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="dark">
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${spaceGrotesk.variable} antialiased`}
       >
