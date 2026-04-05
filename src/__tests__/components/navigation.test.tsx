@@ -15,13 +15,7 @@ vi.mock("next/link", () => ({
   ),
 }));
 
-vi.mock("framer-motion", () => ({
-  motion: {
-    div: ({ children, ...props }: any) => <div {...props}>{children}</div>,
-    span: ({ children, ...props }: any) => <span {...props}>{children}</span>,
-  },
-  AnimatePresence: ({ children }: any) => <>{children}</>,
-}));
+vi.mock("framer-motion", async () => import("@/__tests__/mocks/framer-motion"));
 
 describe("Navigation", () => {
   it("renders the Home link", () => {

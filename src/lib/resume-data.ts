@@ -154,28 +154,6 @@ export const EXTRACURRICULARS: Extracurricular[] = [
   },
 ];
 
-export interface Certification {
-  title: string;
-  issuer: string;
-  date: string;
-  credentialId?: string;
-}
-
-export const CERTIFICATIONS: Certification[] = [
-  {
-    title: "Machine Learning in Python",
-    issuer: "Udemy",
-    date: "December 2021",
-    credentialId: "UC-da56e1cf-0af3-4cfa-a392-65073761a567",
-  },
-  {
-    title: "Java and Object Oriented Programming",
-    issuer: "Udemy",
-    date: "September 2021",
-    credentialId: "UC-d8c933da-46f5-46bd-bc2f-68104411e20b",
-  },
-];
-
 export const SKILLS = {
   languages: ["JavaScript", "Python", "TypeScript"],
   ai_ml: ["LangChain", "LangGraph", "LangFuse", "RAG", "NLP"],

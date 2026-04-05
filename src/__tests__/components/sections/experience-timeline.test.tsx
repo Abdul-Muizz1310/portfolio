@@ -1,21 +1,8 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { render, screen } from "@testing-library/react";
 import { ExperienceTimeline } from "@/components/sections/experience-timeline";
 import { EXPERIENCE } from "@/lib/resume-data";
 
-vi.mock("framer-motion", () => ({
-  motion: new Proxy(
-    {},
-    {
-      get: (_target: any, prop: string) =>
-        ({ children, ...props }: any) => {
-          const Tag = prop as any;
-          return <Tag {...props}>{children}</Tag>;
-        },
-    },
-  ),
-  AnimatePresence: ({ children }: any) => <>{children}</>,
-}));
+vi.mock("framer-motion", async () => import("@/__tests__/mocks/framer-motion"));
 
 describe("ExperienceTimeline", () => {
   it("renders all experience entries by role name", () => {

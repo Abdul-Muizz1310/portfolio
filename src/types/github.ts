@@ -14,7 +14,3 @@ export interface GitHubRepo {
   pushed_at: string;
 }
 
-export interface GitHubReadme {
-  content: string;
-  encoding: string;
-}

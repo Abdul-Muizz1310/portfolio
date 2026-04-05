@@ -1,15 +1,8 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { render, screen } from "@testing-library/react";
 import { VolunteerTimeline } from "@/components/sections/volunteer-timeline";
 import { EXTRACURRICULARS } from "@/lib/resume-data";
 
-vi.mock("framer-motion", () => ({
-  motion: {
-    div: ({ children, ...props }: any) => <div {...props}>{children}</div>,
-    span: ({ children, ...props }: any) => <span {...props}>{children}</span>,
-  },
-  AnimatePresence: ({ children }: any) => <>{children}</>,
-}));
+vi.mock("framer-motion", async () => import("@/__tests__/mocks/framer-motion"));
 
 describe("VolunteerTimeline", () => {
   it('renders "branch: community" label', () => {

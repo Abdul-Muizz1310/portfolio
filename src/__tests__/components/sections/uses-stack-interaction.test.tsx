@@ -1,22 +1,9 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { UsesStack } from "@/components/sections/uses-stack";
 import { SKILLS } from "@/lib/resume-data";
 
-vi.mock("framer-motion", () => ({
-  motion: new Proxy(
-    {},
-    {
-      get: (_target: any, prop: string) =>
-        ({ children, ...props }: any) => {
-          const Tag = prop as any;
-          return <Tag {...props}>{children}</Tag>;
-        },
-    },
-  ),
-  AnimatePresence: ({ children }: any) => <>{children}</>,
-}));
+vi.mock("framer-motion", async () => import("@/__tests__/mocks/framer-motion"));
 
 describe("UsesStack — SkillBadge hover interaction", () => {
   it("adds highlight class on hover and removes on unhover", async () => {

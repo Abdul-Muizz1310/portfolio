@@ -5,7 +5,6 @@ import {
   EXTRACURRICULARS,
   SKILLS,
   VALUES,
-  CERTIFICATIONS,
 } from "@/lib/resume-data";
 
 describe("PERSONAL_INFO", () => {
@@ -122,20 +121,3 @@ describe("VALUES", () => {
   });
 });
 
-describe("CERTIFICATIONS", () => {
-  it("is a non-empty array", () => {
-    expect(Array.isArray(CERTIFICATIONS)).toBe(true);
-    expect(CERTIFICATIONS.length).toBeGreaterThan(0);
-  });
-
-  it("each entry has title, issuer, and date", () => {
-    CERTIFICATIONS.forEach((cert) => {
-      expect(cert).toHaveProperty("title");
-      expect(cert).toHaveProperty("issuer");
-      expect(cert).toHaveProperty("date");
-      expect(typeof cert.title).toBe("string");
-      expect(typeof cert.issuer).toBe("string");
-      expect(typeof cert.date).toBe("string");
-    });
-  });
-});

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { render, screen, fireEvent, act } from "@testing-library/react";
 import { KonamiTerminal } from "@/components/konami-terminal";
 
@@ -11,19 +10,7 @@ vi.mock("@/hooks/use-konami", () => ({
   }),
 }));
 
-vi.mock("framer-motion", () => ({
-  motion: new Proxy(
-    {},
-    {
-      get: (_target: any, prop: string) =>
-        ({ children, ...props }: any) => {
-          const Tag = prop as any;
-          return <Tag {...props}>{children}</Tag>;
-        },
-    },
-  ),
-  AnimatePresence: ({ children }: any) => <>{children}</>,
-}));
+vi.mock("framer-motion", async () => import("@/__tests__/mocks/framer-motion"));
 
 describe("KonamiTerminal — additional coverage", () => {
   beforeEach(() => {
