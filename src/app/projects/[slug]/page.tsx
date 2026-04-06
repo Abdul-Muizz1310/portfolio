@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Star, GitFork, ExternalLink, Globe } from "lucide-react";
 import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import rehypeRaw from "rehype-raw";
 import { fetchGitHubRepos, fetchRepoReadme } from "@/lib/github";
 import { LANGUAGE_COLORS } from "@/lib/constants";
 import { CodeBlock } from "@/components/code-block";
@@ -71,7 +73,29 @@ export default async function ProjectDetailPage({
               {readme ? (
                 <div className="prose-custom">
                   <ReactMarkdown
+                    remarkPlugins={[remarkGfm]}
+                    rehypePlugins={[rehypeRaw]}
                     components={{
+                      table: ({ children }) => (
+                        <div className="mb-4 overflow-x-auto">
+                          <table className="w-full border-collapse text-[0.875rem]">
+                            {children}
+                          </table>
+                        </div>
+                      ),
+                      thead: ({ children }) => (
+                        <thead className="border-b border-border">{children}</thead>
+                      ),
+                      th: ({ children }) => (
+                        <th className="px-3 py-2 text-left font-mono text-foreground">
+                          {children}
+                        </th>
+                      ),
+                      td: ({ children }) => (
+                        <td className="border-b border-border/40 px-3 py-2 text-foreground-muted">
+                          {children}
+                        </td>
+                      ),
                       h1: ({ children }) => (
                         <h1 className="mb-4 mt-6 text-h3 text-foreground first:mt-0">
                           {children}

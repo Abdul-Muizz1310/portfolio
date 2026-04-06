@@ -19,6 +19,7 @@ export default function NotFound() {
   const [path, setPath] = useState("/the-void");
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- Intentional: hydration-safe randomization on client mount
     setJoke(JOKES[Math.floor(Math.random() * JOKES.length)]);
     setPath(window.location.pathname);
   }, []);
