@@ -1,8 +1,9 @@
-<div >
+<div align="center">
 
 # Portfolio
 
-A terminal/IDE-themed personal portfolio with a site-wide interactive Three.js particle field, an in-browser command terminal, and a Konami-code easter egg. 
+A terminal/IDE-themed personal portfolio with a site-wide interactive Three.js particle field, an in-browser command terminal, and a Konami-code easter egg.
+
 </div>
 
 ---
@@ -202,4 +203,3 @@ GitHub Actions workflow at [`.github/workflows/ci.yml`](.github/workflows/ci.yml
 - 🐙 **GitHub:** [@Abdul-Muizz1310](https://github.com/Abdul-Muizz1310)
 
 ---
-</div>
