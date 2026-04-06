@@ -1,10 +1,8 @@
-<div align="center">
+<h1>Portfolio</h1>
 
-# Portfolio
-
-A terminal/IDE-themed personal portfolio with a site-wide interactive Three.js particle field, an in-browser command terminal, and a Konami-code easter egg.
-
-</div>
+<p>
+  A terminal/IDE-themed personal portfolio with a site-wide interactive Three.js particle field, an in-browser command terminal, and a Konami-code easter egg.
+</p>
 
 ---
 
@@ -25,8 +23,6 @@ A terminal/IDE-themed personal portfolio with a site-wide interactive Three.js p
 
 ## 🛠️ Tech Stack
 
-<div align="center">
-
 | Layer | Technologies |
 |---|---|
 | **Framework** | ![Next.js](https://img.shields.io/badge/Next.js-000000?style=flat-square&logo=nextdotjs&logoColor=white) ![React](https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=react&logoColor=black) ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white) |
@@ -36,8 +32,6 @@ A terminal/IDE-themed personal portfolio with a site-wide interactive Three.js p
 | **Email** | ![Resend](https://img.shields.io/badge/Resend-000000?style=flat-square&logo=resend&logoColor=white) |
 | **Testing** | ![Vitest](https://img.shields.io/badge/Vitest-6E9F18?style=flat-square&logo=vitest&logoColor=white) ![Testing Library](https://img.shields.io/badge/Testing_Library-E33332?style=flat-square&logo=testinglibrary&logoColor=white) |
 | **CI/CD** | ![GitHub Actions](https://img.shields.io/badge/GitHub_Actions-2088FF?style=flat-square&logo=githubactions&logoColor=white) |
-
-</div>
 
 ---
 
