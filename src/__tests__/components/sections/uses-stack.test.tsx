@@ -1,6 +1,5 @@
 import { render, screen } from "@testing-library/react";
 import { UsesStack } from "@/components/sections/uses-stack";
-import { SKILLS } from "@/lib/resume-data";
 
 vi.mock("framer-motion", async () => import("@/__tests__/mocks/framer-motion"));
 
@@ -10,27 +9,45 @@ describe("UsesStack", () => {
     expect(screen.getByText("~/uses")).toBeInTheDocument();
   });
 
-  it("renders skill categories", () => {
+  it("renders all category labels", () => {
     render(<UsesStack />);
-    const categories = Object.keys(SKILLS);
-    for (const category of categories) {
-      // Categories are rendered wrapped in quotes as text
-      expect(screen.getByText(`"${category}"`)).toBeInTheDocument();
+    for (const label of [
+      "// languages",
+      "// ai / ml",
+      "// frontend",
+      "// backend",
+      "// databases",
+      "// tools",
+    ]) {
+      expect(screen.getByText(label)).toBeInTheDocument();
     }
   });
 
-  it("renders individual skill names", () => {
+  it("renders core tech names", () => {
     render(<UsesStack />);
-    const allSkills = Object.values(SKILLS).flat();
-    for (const skill of allSkills) {
-      // Skills rendered with quotes around them
-      const elements = screen.getAllByText(`"${skill}"`);
-      expect(elements.length).toBeGreaterThan(0);
+    for (const tech of [
+      "TypeScript",
+      "JavaScript",
+      "Python",
+      "React",
+      "Next.js",
+      "Tailwind CSS",
+      "FastAPI",
+      "Node.js",
+      "PostgreSQL",
+      "MongoDB",
+      "Docker",
+      "AWS",
+      "Redis",
+    ]) {
+      expect(screen.getByText(tech)).toBeInTheDocument();
     }
   });
 
-  it("renders package.json filename", () => {
-    render(<UsesStack />);
-    expect(screen.getByText("package.json")).toBeInTheDocument();
+  it("renders an icon for each tech entry", () => {
+    const { container } = render(<UsesStack />);
+    // react-icons render as <svg role="img">
+    const icons = container.querySelectorAll('svg[role="img"]');
+    expect(icons.length).toBeGreaterThanOrEqual(13);
   });
 });

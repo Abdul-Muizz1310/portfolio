@@ -5,7 +5,6 @@ import Link from "next/link";
 import { ChevronDown } from "lucide-react";
 import { TerminalTyper } from "@/components/terminal-typer";
 import { CodeBlock } from "@/components/code-block";
-import { ParticleField } from "@/components/three/particle-field";
 
 const heroCommands = [
   { command: "whoami", response: "Abdul-Muizz" },
@@ -16,10 +15,6 @@ const heroCommands = [
 export function Hero() {
   return (
     <section className="relative flex min-h-screen items-center justify-center overflow-hidden">
-      {/* Particle background */}
-      {/* Particle background */}
-      <ParticleField className="absolute inset-0 z-0" />
-
       {/* Content */}
       <div className="relative z-10 grid w-full max-w-[1200px] items-center gap-12 px-4 sm:px-8 md:grid-cols-2">
         {/* Left column — terminal + CTAs */}

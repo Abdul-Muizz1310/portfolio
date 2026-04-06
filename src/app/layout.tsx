@@ -5,6 +5,7 @@ import { Navigation } from "@/components/navigation";
 import { StatusBar } from "@/components/status-bar";
 import { CustomCursor } from "@/components/custom-cursor";
 import { KonamiTerminal } from "@/components/konami-terminal";
+import { ParticleBackground } from "@/components/three/particle-background";
 import "@/lib/boneyard";
 import "./globals.css";
 
@@ -36,8 +37,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en" className="dark" suppressHydrationWarning>
       <body
+        suppressHydrationWarning
         className={`${geistSans.variable} ${geistMono.variable} ${spaceGrotesk.variable} antialiased`}
       >
         <a
@@ -46,6 +48,8 @@ export default function RootLayout({
         >
           Skip to content
         </a>
+        {/* Site-wide animated particle background — client-only to avoid SSR style mismatch */}
+        <ParticleBackground />
         <CustomCursor />
         <KonamiTerminal />
         <Navigation />

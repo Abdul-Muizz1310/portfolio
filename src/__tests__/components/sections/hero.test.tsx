@@ -2,10 +2,6 @@
 import { render, screen } from "@testing-library/react";
 import { Hero } from "@/components/sections/hero";
 
-vi.mock("@/components/three/particle-field", () => ({
-  ParticleField: () => <div data-testid="particle-field" />,
-}));
-
 vi.mock("@/components/terminal-typer", () => ({
   TerminalTyper: () => <div data-testid="terminal-typer" />,
 }));
@@ -47,11 +43,6 @@ describe("Hero", () => {
     const img = screen.getByAltText("Abdul-Muizz");
     expect(img).toBeInTheDocument();
     expect(img).toHaveAttribute("src", "/avatar.jpg");
-  });
-
-  it("renders the particle field", () => {
-    render(<Hero />);
-    expect(screen.getByTestId("particle-field")).toBeInTheDocument();
   });
 
   it("renders the terminal typer", () => {

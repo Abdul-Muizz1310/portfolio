@@ -4,6 +4,15 @@ import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Suspense, useRef, useMemo, useEffect } from "react";
 import * as THREE from "three";
 
+// Global mouse tracker — works even when the canvas wrapper is pointer-events-none
+const globalPointer = { x: 0, y: 0 };
+if (typeof window !== "undefined") {
+  window.addEventListener("pointermove", (e) => {
+    globalPointer.x = (e.clientX / window.innerWidth) * 2 - 1;
+    globalPointer.y = -((e.clientY / window.innerHeight) * 2 - 1);
+  });
+}
+
 const PARTICLE_COUNT = 200;
 const CONNECTION_DISTANCE = 3.5;
 const REPEL_RADIUS = 4;
@@ -14,7 +23,7 @@ const DRIFT_SPEED = 0.0003;
 function Particles() {
   const pointsRef = useRef<THREE.Points>(null);
   const linesRef = useRef<THREE.LineSegments>(null);
-  const { pointer, viewport } = useThree();
+  const { viewport } = useThree();
   const timeRef = useRef(0);
 
   const { positions, originalPositions } = useMemo(() => {
@@ -101,8 +110,8 @@ function Particles() {
 
     timeRef.current += 1;
 
-    const mouseX = pointer.x * (viewport.width / 2);
-    const mouseY = pointer.y * (viewport.height / 2);
+    const mouseX = globalPointer.x * (viewport.width / 2);
+    const mouseY = globalPointer.y * (viewport.height / 2);
 
     const posAttr = pointsRef.current.geometry.attributes
       .position as THREE.BufferAttribute;
@@ -231,6 +240,7 @@ export function ParticleField({ className }: { className?: string }) {
         camera={{ position: [0, 0, 18], fov: 55 }}
         dpr={[1, 2]}
         style={{ background: "transparent" }}
+        eventSource={typeof document !== "undefined" ? document.body : undefined}
       >
         <Suspense fallback={null}>
           <Particles />
