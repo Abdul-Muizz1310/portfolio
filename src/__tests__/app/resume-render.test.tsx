@@ -1,13 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { render, screen } from "@testing-library/react";
-
-vi.mock("@/components/code-block", () => ({
-  CodeBlock: ({ filename, children }: any) => (
-    <div data-testid="code-block" data-filename={filename}>
-      {children}
-    </div>
-  ),
-}));
 
 import ResumePage, { metadata } from "@/app/resume/page";
 
@@ -20,32 +11,29 @@ describe("Resume page", () => {
     expect(metadata.description).toBeTruthy();
   });
 
-  it("renders the export resume.pdf link", () => {
+  it("renders the download resume link", () => {
     render(<ResumePage />);
-    expect(screen.getByText("$ export resume.pdf")).toBeInTheDocument();
+    const link = screen.getByText("$ download resume.pdf");
+    expect(link).toBeInTheDocument();
+    expect(link.closest("a")).toHaveAttribute("href", "/resume.pdf");
+    expect(link.closest("a")).toHaveAttribute("download");
   });
 
-  it("renders with filename resume.tsx", () => {
+  it("renders the open in new tab link", () => {
     render(<ResumePage />);
-    const codeBlock = screen.getByTestId("code-block");
-    expect(codeBlock).toHaveAttribute("data-filename", "resume.tsx");
+    const link = screen.getByText("$ open --new-tab");
+    expect(link.closest("a")).toHaveAttribute("target", "_blank");
   });
 
-  it("renders experience data", () => {
+  it("renders the embedded PDF viewer", () => {
     render(<ResumePage />);
-    // Check for a role that should exist in resume-data
-    expect(screen.getByTestId("code-block").textContent).toMatch(
-      /position:/,
-    );
+    expect(
+      screen.getByLabelText(/resume pdf/i),
+    ).toBeInTheDocument();
   });
 
-  it("renders education data", () => {
+  it("renders the window chrome filename", () => {
     render(<ResumePage />);
-    expect(screen.getByTestId("code-block").textContent).toMatch(/degree:/);
-  });
-
-  it("renders skills section", () => {
-    render(<ResumePage />);
-    expect(screen.getByTestId("code-block").textContent).toMatch(/skills/);
+    expect(screen.getByText(/resume\.pdf — Abdul-Muizz/)).toBeInTheDocument();
   });
 });

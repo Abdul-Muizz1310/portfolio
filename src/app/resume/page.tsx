@@ -1,242 +1,92 @@
 import type { Metadata } from "next";
-import { CodeBlock } from "@/components/code-block";
-import {
-  PERSONAL_INFO,
-  EXPERIENCE,
-  EDUCATION,
-  SKILLS,
-} from "@/lib/resume-data";
+import { SectionHeader } from "@/components/section-header";
+import { PERSONAL_INFO } from "@/lib/resume-data";
 
 export const metadata: Metadata = {
   title: "Resume — Abdul-Muizz",
   description: `Resume of ${PERSONAL_INFO.name} — ${PERSONAL_INFO.title}`,
 };
 
-function ResumeLines() {
-  const lines: React.ReactNode[] = [];
-  let key = 0;
-
-  const push = (node: React.ReactNode) => {
-    lines.push(<div key={key++}>{node}</div>);
-  };
-
-  const blank = () => push(<>&nbsp;</>);
-
-  // --- Header ---
-  push(
-    <span className="text-foreground-faint">
-      {`// ${PERSONAL_INFO.name} — ${PERSONAL_INFO.title}`}
-    </span>,
-  );
-  push(
-    <span className="text-foreground-faint">
-      {`// ${PERSONAL_INFO.location} | ${PERSONAL_INFO.email}`}
-    </span>,
-  );
-  blank();
-  push(
-    <span className="text-foreground-faint">
-      {`// ${PERSONAL_INFO.summary}`}
-    </span>,
-  );
-  blank();
-  blank();
-
-  // --- Experience ---
-  push(
-    <span className="text-foreground-faint">
-      {"// ═══ Experience ═══"}
-    </span>,
-  );
-  blank();
-
-  EXPERIENCE.forEach((exp, idx) => {
-    push(
-      <span className="text-foreground">
-        <span className="text-accent-purple">{"const "}</span>
-        {`role_${idx + 1} `}
-        <span className="text-foreground-muted">{"= {"}</span>
-      </span>,
-    );
-    push(
-      <span className="text-foreground">
-        {"  position: "}
-        <span className="text-accent-cyan">{`"${exp.role}"`}</span>
-        {","}
-      </span>,
-    );
-    push(
-      <span className="text-foreground">
-        {"  company: "}
-        <span className="text-accent-purple">{`"${exp.company}"`}</span>
-        {","}
-      </span>,
-    );
-    push(
-      <span className="text-foreground">
-        {"  period: "}
-        <span className="text-foreground-muted">
-          {`"${exp.startDate} — ${exp.endDate}"`}
-        </span>
-        {","}
-      </span>,
-    );
-    push(
-      <span className="text-foreground">
-        {"  location: "}
-        <span className="text-foreground-muted">{`"${exp.location}"`}</span>
-        {","}
-      </span>,
-    );
-    push(
-      <span className="text-foreground">{"  achievements: ["}</span>,
-    );
-    exp.description.forEach((desc) => {
-      push(
-        <span className="text-foreground">
-          {"    "}
-          <span className="text-foreground">{`"${desc}"`}</span>
-          {","}
-        </span>,
-      );
-    });
-    push(<span className="text-foreground">{"  ],"}</span>);
-    push(
-      <span className="text-foreground-muted">{"};"}</span>,
-    );
-    blank();
-  });
-
-  blank();
-
-  // --- Education ---
-  push(
-    <span className="text-foreground-faint">
-      {"// ═══ Education ═══"}
-    </span>,
-  );
-  blank();
-
-  EDUCATION.forEach((edu, idx) => {
-    push(
-      <span className="text-foreground">
-        <span className="text-accent-purple">{"const "}</span>
-        {`education_${idx + 1} `}
-        <span className="text-foreground-muted">{"= {"}</span>
-      </span>,
-    );
-    push(
-      <span className="text-foreground">
-        {"  degree: "}
-        <span className="text-accent-cyan">{`"${edu.degree}"`}</span>
-        {","}
-      </span>,
-    );
-    push(
-      <span className="text-foreground">
-        {"  institution: "}
-        <span className="text-accent-purple">{`"${edu.institution}"`}</span>
-        {","}
-      </span>,
-    );
-    push(
-      <span className="text-foreground">
-        {"  period: "}
-        <span className="text-foreground-muted">
-          {`"${edu.startDate} — ${edu.endDate}"`}
-        </span>
-        {","}
-      </span>,
-    );
-    push(
-      <span className="text-foreground">
-        {"  location: "}
-        <span className="text-foreground-muted">{`"${edu.location}"`}</span>
-        {","}
-      </span>,
-    );
-    push(
-      <span className="text-foreground">{"  highlights: ["}</span>,
-    );
-    edu.highlights.forEach((h) => {
-      push(
-        <span className="text-foreground">
-          {"    "}
-          <span className="text-foreground">{`"${h}"`}</span>
-          {","}
-        </span>,
-      );
-    });
-    push(<span className="text-foreground">{"  ],"}</span>);
-    push(
-      <span className="text-foreground-muted">{"};"}</span>,
-    );
-    blank();
-  });
-
-  blank();
-
-  // --- Skills ---
-  push(
-    <span className="text-foreground-faint">
-      {"// ═══ Skills ═══"}
-    </span>,
-  );
-  blank();
-
-  push(
-    <span className="text-foreground">
-      <span className="text-accent-purple">{"const "}</span>
-      {"skills "}
-      <span className="text-foreground-muted">{"= {"}</span>
-    </span>,
-  );
-
-  const skillEntries = Object.entries(SKILLS);
-  skillEntries.forEach(([category, items]) => {
-    push(
-      <span className="text-foreground">
-        {`  ${category}: [`}
-        <span className="text-accent-cyan">
-          {items.map((item) => `"${item}"`).join(", ")}
-        </span>
-        {"],"}
-      </span>,
-    );
-  });
-
-  push(
-    <span className="text-foreground-muted">{"};"}</span>,
-  );
-  blank();
-
-  // --- Export ---
-  push(
-    <span className="text-foreground">
-      <span className="text-accent-purple">{"export default "}</span>
-      {"{ role_1, role_2, role_3, education_1, skills };"}
-    </span>,
-  );
-
-  return <>{lines}</>;
-}
-
 export default function ResumePage() {
+  const pdfPath = "/resume.pdf";
+
   return (
     <div className="mx-auto max-w-[1200px] px-4 py-20 sm:px-8">
-      <div className="mb-6 flex items-center justify-end">
-        <a
-          href="/resume.pdf"
-          download
-          className="font-mono text-[0.875rem] bg-surface border border-border rounded-full px-4 py-1.5 hover:border-border-bright transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-background"
-        >
-          $ export resume.pdf
-        </a>
+      <SectionHeader command="$ cat resume.pdf" />
+
+      <div className="mt-4 flex flex-wrap items-center justify-between gap-4">
+        <p className="font-mono text-sm text-foreground-muted">
+          {`// ${PERSONAL_INFO.name} — ${PERSONAL_INFO.title}`}
+        </p>
+
+        <div className="flex flex-wrap items-center gap-2">
+          <a
+            href={pdfPath}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-mono text-[0.875rem] bg-surface border border-border rounded-full px-4 py-1.5 hover:border-border-bright transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+          >
+            $ open --new-tab
+          </a>
+          <a
+            href={pdfPath}
+            download
+            className="font-mono text-[0.875rem] gradient-bg text-background rounded-full px-4 py-1.5 hover:opacity-90 transition-opacity focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+          >
+            $ download resume.pdf
+          </a>
+        </div>
       </div>
 
-      <CodeBlock filename="resume.tsx" showLineNumbers={true}>
-        <ResumeLines />
-      </CodeBlock>
+      {/* PDF viewer — macOS-style window chrome matching site design */}
+      <div className="mt-8 rounded-xl border border-border bg-surface overflow-hidden shadow-2xl gradient-border">
+        {/* Window chrome */}
+        <div className="flex items-center gap-3 border-b border-border bg-background/60 px-4 py-3">
+          <div className="flex items-center gap-1.5">
+            <span className="h-3 w-3 rounded-full bg-[#ff5f57]" />
+            <span className="h-3 w-3 rounded-full bg-[#febc2e]" />
+            <span className="h-3 w-3 rounded-full bg-[#28c840]" />
+          </div>
+          <div className="flex-1 text-center font-mono text-xs text-foreground-muted truncate">
+            resume.pdf — Abdul-Muizz Anwar
+          </div>
+          <div className="font-mono text-[0.7rem] text-foreground-faint hidden sm:block">
+            PDF
+          </div>
+        </div>
+
+        {/* PDF iframe */}
+        <div className="relative bg-background">
+          <object
+            data={`${pdfPath}#view=FitH&toolbar=1&navpanes=0`}
+            type="application/pdf"
+            className="block h-[80vh] min-h-[600px] w-full"
+            aria-label={`${PERSONAL_INFO.name} resume PDF`}
+          >
+            <iframe
+              src={pdfPath}
+              title={`${PERSONAL_INFO.name} resume PDF`}
+              className="block h-[80vh] min-h-[600px] w-full border-0"
+            />
+            <div className="p-8 text-center font-mono text-sm text-foreground-muted">
+              <p className="mb-4">
+                {`// Your browser can't display embedded PDFs.`}
+              </p>
+              <a
+                href={pdfPath}
+                download
+                className="inline-block gradient-bg text-background rounded-full px-4 py-2"
+              >
+                $ download resume.pdf
+              </a>
+            </div>
+          </object>
+        </div>
+      </div>
+
+      <p className="mt-4 text-center font-mono text-xs text-foreground-faint">
+        {`// rendered from /public/resume.pdf`}
+      </p>
     </div>
   );
 }

@@ -1,10 +1,13 @@
 export const PERSONAL_INFO = {
-  name: "Abdul-Muizz",
-  title: "Software Engineer",
+  name: "Abdul-Muizz Anwar",
+  title: "AI Software Engineer",
   location: "Islamabad, Pakistan",
   email: "abdulmuizz1310@outlook.com",
+  phone: "+92-303-7279436",
+  linkedin: "abdulmuizz1310",
+  github: "Abdul-Muizz1310",
   summary:
-    "Software Engineer specializing in AI/ML solutions, full-stack web development, and Python automation. Experienced in building LangGraph AI agents, RAG pipelines, and scalable microservice architectures. Passionate about leveraging LLMs and modern web technologies to solve complex business problems.",
+    "AI Software Engineer specializing in LangGraph agents, RAG pipelines, and scalable full-stack systems. Experienced in building production-grade AI tooling with GPT-4o/GPT-5.3, FastAPI microservices handling 10k+ RPM, and secure Next.js internal tools with RBAC. Passionate about turning complex rulebooks, fragmented data, and manual workflows into reliable automated platforms.",
 } as const;
 
 export interface Experience {
@@ -26,15 +29,14 @@ export const EXPERIENCE: Experience[] = [
     startDate: "August 2025",
     endDate: "Present",
     description: [
-      "Architected an AI-powered fee intelligence platform with 13 microservices, enabling automated fee extraction, change tracking, and structured data delivery across 40+ global exchanges.",
-      "Engineered a config-driven web crawling system using Scrapy, Playwright, and Redis with 13+ exchange-specific handlers and proxy rotation, achieving 40+ exchange coverage with zero manual intervention.",
-      "Designed and implemented 7 LangGraph AI agents (GPT-4o, GPT-4o-mini) for fee extraction, validation, change detection, and definition parsing, reducing manual fee analysis time by 85%.",
-      "Built an end-to-end document change pipeline using AWS Lambda, SQS, and ECS Tasks to automatically detect, diff, and summarize fee schedule changes within hours instead of days.",
-      "Developed a high-performance operations backend (ops-api) with FastAPI, handling 61 services across 9 Celery queues, 65+ SQLAlchemy models, and robust middleware chain at scale.",
-      "Built a secure operations portal using Next.js 16, React 19, and TypeScript with httpOnly cookie authentication, HMAC-signed permission cookies, and tamper-proof RBAC across 15+ dashboard modules.",
-      "Resolved scalability bottlenecks in PDF fee extraction by implementing batch processing with LandingAI DPT-2 and Playwright, parallel Celery task execution, and S3-backed result storage.",
-      "Developed a public-facing RESTful API and SDKs (Python + TypeScript) with RS256 JWT + API key authentication, rate limiting, cursor pagination, and comprehensive Mintlify documentation.",
-      "Implemented a comprehensive evaluation framework using DeepEval metrics to continuously measure AI extraction accuracy, enabling data-driven prompt tuning and agent improvements.",
+      "Built a ReAct-style Trade Validator agent using GPT-5.3 to ensure real-time trade compliance with the most recent exchange fee requirements, lowering compliance errors by 35% and enhancing confidence in auto-published data.",
+      "Designed a LangGraph Fee Extraction agent using GPT-4o to replace hours of manual fee extraction from complex rulebooks, reducing structured fee extraction time by 30%.",
+      "Built a secure Next.js internal tool using signed cookie authentication and RBAC to ensure tokens never reach the browser and provide secure access control.",
+      "Reduced frontend development bottlenecks using SWR for caching, Zustand for predictable state, and Chakra UI and Shadcn for reusable components, resulting in 35% faster feature development and fewer redundant API calls.",
+      "Solved fragmented rulebook collection by creating a configuration-based Scrapy & Playwright scraper architecture that ingests rulebooks from over 30 exchange websites, allowing new exchange scraping through config rather than code.",
+      "Improved database performance under high microservice load by implementing suitable indexing and query optimization across shared SQLAlchemy models, reducing average query latency by 40% and stabilising cross-service data access.",
+      "Reduced integration friction for external developers by releasing typed Python and TypeScript SDKs alongside API documentation, allowing partners to integrate fee data without developing new clients.",
+      "Refined backend stability by developing MVC-structured FastAPI services capable of handling 10,000+ requests per minute and implementing path-filtered GitHub Actions pipelines with automated testing, resulting in an 80% reduction in production issues.",
     ],
   },
   {
@@ -46,27 +48,27 @@ export const EXPERIENCE: Experience[] = [
     endDate: "July 2025",
     description: [
       "Optimized back-end data processing by designing and implementing robust solutions with Java and Hibernate ORM, leveraging Dynamic Query in Liferay to streamline database operations, resulting in 30% lower response times.",
-      "Improved system stability and scalability by debugging and enhancing existing Liferay-based systems, ensuring adherence to best practices in the production environment, and reducing system crashes by 10%.",
+      "Orchestrated the migration of legacy Liferay-based systems to a cloud-native architecture on AWS, improving system availability and scalability by 40%.",
       "Resolved performance bottlenecks in SQL queries by understanding the client's business needs to identify key resources and removing overheads in REST APIs to ensure efficient data management and enterprise application reliability.",
-      "Identified performance and UX gaps to deliver solutions integrating modern web dev techniques and efficient state management, enabling high-performance applications that increased user session duration by 20%.",
-      "Implemented an RAG-based Cyber Security Consultant chatbot using phi-3.5 large language model and Hugging Face guardrails and embedding to improve users' personalized experience and answer quick queries.",
+      "Identified performance and UX gaps to deliver solutions integrating modern web techniques and efficient state management, enabling high-performance applications that extended user session duration by 20%.",
+      "Implemented an RAG-based Cyber Security Consultant chatbot using phi-3.5 large language model and Hugging Face guardrails and embedding to improve users' personalized experience, resulting in a 20% increase in conversion rates.",
       "Integrated the Firebase backend for the RAG-based Cyber Security Consultant chatbot for user-specific memory retention and context management, resulting in a 60% increase in desktop application usage.",
-      "Addressed scalability and customization challenges made due to legacy codebase and Liferay constraints by combining multiple codebases into a singular structure, reducing development time by 40% and increasing code reusability by 70%.",
+      "Migrated legacy Liferay platform to microservices, resolving scalability issues and reducing development time by 40%, directly contributing to stable and faster deployments.",
     ],
   },
   {
     hash: "a7b8c9d",
     role: "Associate Software Engineer – Part-time",
-    company: "VAASEL",
+    company: "Vaasel Software Solutions",
     location: "Islamabad, PK",
     startDate: "September 2023",
     endDate: "April 2024",
     description: [
       "Implemented a centralized property listing platform to address fragmented property listings, enhancing user accessibility, and streamlining the property browsing experience.",
-      "Designed and developed an agriculture-focused e-commerce platform to improve farmer and manufacturer connections that reduced intermediary reliance, cutting intermediary costs by 30% and improving product availability.",
+      "Developed an agriculture-focused e-commerce platform to improve farmer and manufacturer connections that reduced intermediary reliance, cutting intermediary costs by 30% and improving product availability.",
       "Enhanced team coordination for a food donation platform and led an agile development team, optimizing collaboration and communication, ensuring zero delays and on-time project delivery.",
-      "Boosted online engagement and visibility by creating interactive promotional websites to increase user interaction and support effective digital marketing campaigns.",
-      "Developed a transparent hiring process platform by identifying gaps in human resource management workflows to improve candidate visibility and reduce HR workload by 40%.",
+      "Built and deployed chatbots on promotional websites, answering 80% of common user queries, improving user satisfaction scores by 15%, while providing personalized assistance.",
+      "Engineered an AI-powered candidate screening model using machine learning, improving the efficiency of resume processing and reducing HR workload by 40%.",
     ],
   },
   {
@@ -155,12 +157,12 @@ export const EXTRACURRICULARS: Extracurricular[] = [
 ];
 
 export const SKILLS = {
-  languages: ["JavaScript", "Python", "TypeScript"],
-  ai_ml: ["LangChain", "LangGraph", "LangFuse", "RAG", "NLP"],
-  frontend: ["React", "Next.js", "React Native", "Tailwind CSS"],
-  backend: ["FastAPI", "Express", "Node.js", "REST APIs"],
+  languages: ["JavaScript", "Python"],
+  ai_ml: ["LangGraph", "LangChain", "LangFuse"],
+  frontend: ["Next.js", "React Native"],
+  backend: ["FastAPI", "Express"],
   databases: ["PostgreSQL", "MongoDB"],
-  tools: ["Git", "Docker", "AWS", "Celery", "Redis"],
+  tools: ["Git"],
 } as const;
 
 export const VALUES = [
