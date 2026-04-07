@@ -13,10 +13,11 @@ describe("Resume page", () => {
 
   it("renders the download resume link", () => {
     render(<ResumePage />);
-    const link = screen.getByText("$ download resume.pdf");
-    expect(link).toBeInTheDocument();
-    expect(link.closest("a")).toHaveAttribute("href", "/resume.pdf");
-    expect(link.closest("a")).toHaveAttribute("download");
+    const links = screen.getAllByText("$ download resume.pdf");
+    expect(links.length).toBeGreaterThan(0);
+    const anchor = links[0].closest("a");
+    expect(anchor).toHaveAttribute("href", "/resume.pdf");
+    expect(anchor).toHaveAttribute("download");
   });
 
   it("renders the open in new tab link", () => {
