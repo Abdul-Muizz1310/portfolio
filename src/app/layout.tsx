@@ -5,6 +5,8 @@ import { Navigation } from "@/components/navigation";
 import { StatusBar } from "@/components/status-bar";
 import { CustomCursor } from "@/components/custom-cursor";
 import { KonamiTerminal } from "@/components/konami-terminal";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { ParticleBackground } from "@/components/three/particle-background";
 import "@/lib/boneyard";
 import "./globals.css";
@@ -57,6 +59,8 @@ export default function RootLayout({
           {children}
         </main>
         <StatusBar />
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
