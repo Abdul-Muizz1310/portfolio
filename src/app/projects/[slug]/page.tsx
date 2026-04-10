@@ -5,8 +5,9 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
 import { fetchGitHubRepos, fetchRepoReadme } from "@/lib/github";
-import { LANGUAGE_COLORS } from "@/lib/constants";
+import { LANGUAGE_COLORS, GITHUB_USERNAME } from "@/lib/constants";
 import { CodeBlock } from "@/components/code-block";
+import { MermaidDiagram } from "@/components/mermaid-diagram";
 
 interface ProjectDetailPageProps {
   params: Promise<{ slug: string }>;
@@ -66,104 +67,59 @@ export default async function ProjectDetailPage({
         </Link>
 
         {/* Two-column layout */}
-        <div className="grid gap-8 md:grid-cols-[1fr_300px]">
+        <div className="grid gap-8 overflow-x-hidden md:grid-cols-[1fr_300px]">
           {/* Main area — README */}
-          <div>
+          <div className="min-w-0">
             <CodeBlock filename="README.md" showLineNumbers={false}>
               {readme ? (
-                <div className="prose-custom">
+                <div className="prose-github">
                   <ReactMarkdown
                     remarkPlugins={[remarkGfm]}
                     rehypePlugins={[rehypeRaw]}
+                    urlTransform={(url, key) => {
+                      if (
+                        url.startsWith("https://") ||
+                        url.startsWith("http://") ||
+                        url.startsWith("#") ||
+                        url.startsWith("mailto:")
+                      )
+                        return url;
+                      const clean = url.replace(/^\.?\//, "");
+                      if (key === "src") {
+                        return `https://raw.githubusercontent.com/${GITHUB_USERNAME}/${repo.name}/HEAD/${clean}`;
+                      }
+                      const segment = clean.endsWith("/") ? "tree" : "blob";
+                      return `https://github.com/${GITHUB_USERNAME}/${repo.name}/${segment}/HEAD/${clean}`;
+                    }}
                     components={{
-                      table: ({ children }) => (
-                        <div className="mb-4 overflow-x-auto">
-                          <table className="w-full border-collapse text-[0.875rem]">
-                            {children}
-                          </table>
-                        </div>
-                      ),
-                      thead: ({ children }) => (
-                        <thead className="border-b border-border">{children}</thead>
-                      ),
-                      th: ({ children }) => (
-                        <th className="px-3 py-2 text-left font-mono text-foreground">
-                          {children}
-                        </th>
-                      ),
-                      td: ({ children }) => (
-                        <td className="border-b border-border/40 px-3 py-2 text-foreground-muted">
-                          {children}
-                        </td>
-                      ),
-                      h1: ({ children }) => (
-                        <h1 className="mb-4 mt-6 text-h3 text-foreground first:mt-0">
-                          {children}
-                        </h1>
-                      ),
-                      h2: ({ children }) => (
-                        <h2 className="mb-3 mt-5 text-h4 text-foreground">
-                          {children}
-                        </h2>
-                      ),
-                      h3: ({ children }) => (
-                        <h3 className="mb-2 mt-4 font-heading text-[1.125rem] font-semibold text-foreground">
-                          {children}
-                        </h3>
-                      ),
-                      p: ({ children }) => (
-                        <p className="mb-3 leading-relaxed text-foreground-muted">
-                          {children}
-                        </p>
-                      ),
-                      a: ({ href, children }) => (
-                        <a
-                          href={href}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-accent-cyan underline decoration-accent-cyan/30 transition-colors hover:text-accent-blue"
-                        >
-                          {children}
-                        </a>
-                      ),
-                      ul: ({ children }) => (
-                        <ul className="mb-3 space-y-1 pl-4">{children}</ul>
-                      ),
-                      ol: ({ children }) => (
-                        <ol className="mb-3 list-decimal space-y-1 pl-4">
-                          {children}
-                        </ol>
-                      ),
-                      li: ({ children }) => (
-                        <li className="text-foreground-muted before:mr-2 before:text-foreground-faint before:content-['•']">
-                          {children}
-                        </li>
-                      ),
                       code: ({ children, className }) => {
-                        const isInline = !className;
-                        if (isInline) {
+                        const match = /language-(\w+)/.exec(className ?? "");
+                        if (match?.[1] === "mermaid") {
                           return (
-                            <code className="rounded bg-surface-hover px-1.5 py-0.5 font-mono text-[0.8125rem] text-accent-cyan">
-                              {children}
-                            </code>
+                            <MermaidDiagram
+                              chart={String(children).replace(/\n$/, "")}
+                            />
                           );
                         }
-                        return (
-                          <code className="block overflow-x-auto rounded-md bg-surface-hover p-4 font-mono text-[0.8125rem] text-foreground-muted">
-                            {children}
-                          </code>
-                        );
+                        return <code className={className}>{children}</code>;
                       },
-                      pre: ({ children }) => (
-                        <pre className="mb-3 overflow-x-auto rounded-md bg-surface-hover p-4">
-                          {children}
-                        </pre>
-                      ),
-                      blockquote: ({ children }) => (
-                        <blockquote className="mb-3 border-l-2 border-accent-cyan pl-4 text-foreground-muted italic">
-                          {children}
-                        </blockquote>
-                      ),
+                      pre: ({ children, node }) => {
+                        const codeNode = node?.children?.[0];
+                        if (
+                          codeNode &&
+                          "tagName" in codeNode &&
+                          codeNode.tagName === "code"
+                        ) {
+                          const cls = codeNode.properties?.className;
+                          if (
+                            Array.isArray(cls) &&
+                            cls.includes("language-mermaid")
+                          ) {
+                            return <>{children}</>;
+                          }
+                        }
+                        return <pre>{children}</pre>;
+                      },
                       img: ({ src, alt }) => {
                         if (!src || typeof src !== "string") return null;
                         const isValidSrc =
@@ -176,12 +132,10 @@ export default async function ProjectDetailPage({
                           // eslint-disable-next-line @next/next/no-img-element
                           <img
                             src={src}
-                            alt={alt || "Project image"}
-                            className="my-3 max-w-full rounded-md"
+                            alt={alt ?? "Project image"}
                           />
                         );
                       },
-                      hr: () => <hr className="my-6 border-border" />,
                     }}
                   >
                     {readme}

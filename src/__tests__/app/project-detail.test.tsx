@@ -44,28 +44,67 @@ vi.mock("@/components/code-block", () => ({
   ),
 }));
 
+vi.mock("@/components/mermaid-diagram", () => ({
+  MermaidDiagram: ({ chart }: any) => (
+    <div data-testid="mermaid-diagram">{chart}</div>
+  ),
+}));
+
 vi.mock("react-markdown", () => ({
-  default: ({ children, components }: any) => {
-    // Exercise all custom component renderers to cover lines 76-160
+  default: ({ children, components, urlTransform }: any) => {
     const c = components || {};
+    // Exercise urlTransform with key parameter
+    const resolvedHref = urlTransform?.("docs/README.md", "href", {});
+    const resolvedSrc = urlTransform?.("assets/img.png", "src", {});
+    const absoluteUrl = urlTransform?.("https://example.com", "href", {});
     return (
       <div data-testid="markdown">
-        {c.h1 ? c.h1({ children: "Heading 1" }) : null}
-        {c.h2 ? c.h2({ children: "Heading 2" }) : null}
-        {c.h3 ? c.h3({ children: "Heading 3" }) : null}
-        {c.p ? c.p({ children: "Paragraph" }) : null}
-        {c.a ? c.a({ href: "https://example.com", children: "Link" }) : null}
-        {c.ul ? c.ul({ children: <li>item</li> }) : null}
-        {c.ol ? c.ol({ children: <li>ordered</li> }) : null}
-        {c.li ? c.li({ children: "List item" }) : null}
         {/* inline code (no className) */}
         {c.code ? c.code({ children: "inline", className: undefined }) : null}
         {/* block code (with className) */}
         {c.code
           ? c.code({ children: "block code", className: "language-js" })
           : null}
-        {c.pre ? c.pre({ children: "preformatted" }) : null}
-        {c.blockquote ? c.blockquote({ children: "quote" }) : null}
+        {/* mermaid code block */}
+        {c.code
+          ? c.code({
+              children: "graph TD\n  A-->B",
+              className: "language-mermaid",
+            })
+          : null}
+        {/* pre with mermaid hast node */}
+        {c.pre
+          ? c.pre({
+              children: c.code
+                ? c.code({
+                    children: "graph LR\n  X-->Y",
+                    className: "language-mermaid",
+                  })
+                : null,
+              node: {
+                children: [
+                  {
+                    tagName: "code",
+                    properties: { className: ["language-mermaid"] },
+                  },
+                ],
+              },
+            })
+          : null}
+        {/* pre with regular content */}
+        {c.pre
+          ? c.pre({
+              children: "preformatted",
+              node: {
+                children: [
+                  {
+                    tagName: "code",
+                    properties: { className: ["language-js"] },
+                  },
+                ],
+              },
+            })
+          : null}
         {/* valid image */}
         {c.img
           ? c.img({ src: "https://example.com/img.png", alt: "test" })
@@ -74,7 +113,19 @@ vi.mock("react-markdown", () => ({
         {c.img ? c.img({ src: undefined, alt: "broken" }) : null}
         {/* invalid image (data: URI — not valid per filter) */}
         {c.img ? c.img({ src: "data:image/png;base64,abc", alt: "bad" }) : null}
-        {c.hr ? c.hr({}) : null}
+        {resolvedHref && (
+          <a data-testid="resolved-href" href={resolvedHref}>
+            link
+          </a>
+        )}
+        {resolvedSrc && (
+          <img data-testid="resolved-src" src={resolvedSrc} alt="" />
+        )}
+        {absoluteUrl && (
+          <a data-testid="absolute-url" href={absoluteUrl}>
+            abs
+          </a>
+        )}
         <span>{children}</span>
       </div>
     );
@@ -157,6 +208,57 @@ describe("Project detail page", () => {
     render(jsx);
 
     expect(screen.queryByText("Live Demo")).not.toBeInTheDocument();
+  });
+
+  it("renders mermaid code blocks as MermaidDiagram", async () => {
+    const jsx = await ProjectDetailPage({
+      params: Promise.resolve({ slug: "test-repo" }),
+    });
+    render(jsx);
+
+    const diagrams = screen.getAllByTestId("mermaid-diagram");
+    expect(diagrams.length).toBeGreaterThanOrEqual(1);
+    expect(diagrams[0]).toHaveTextContent("graph TD");
+  });
+
+  it("resolves relative href links to GitHub blob URLs", async () => {
+    const jsx = await ProjectDetailPage({
+      params: Promise.resolve({ slug: "test-repo" }),
+    });
+    render(jsx);
+
+    const link = screen.getByTestId("resolved-href");
+    expect(link).toHaveAttribute(
+      "href",
+      expect.stringContaining("github.com"),
+    );
+    expect(link).toHaveAttribute(
+      "href",
+      expect.stringContaining("/blob/HEAD/"),
+    );
+  });
+
+  it("resolves relative src URLs to raw.githubusercontent", async () => {
+    const jsx = await ProjectDetailPage({
+      params: Promise.resolve({ slug: "test-repo" }),
+    });
+    render(jsx);
+
+    const img = screen.getByTestId("resolved-src");
+    expect(img).toHaveAttribute(
+      "src",
+      expect.stringContaining("raw.githubusercontent.com"),
+    );
+  });
+
+  it("preserves absolute URLs in urlTransform", async () => {
+    const jsx = await ProjectDetailPage({
+      params: Promise.resolve({ slug: "test-repo" }),
+    });
+    render(jsx);
+
+    const link = screen.getByTestId("absolute-url");
+    expect(link).toHaveAttribute("href", "https://example.com");
   });
 
   it("shows no README message when readme is null", async () => {
