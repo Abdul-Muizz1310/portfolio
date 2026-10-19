@@ -1,6 +1,9 @@
 import sitemap from "@/app/sitemap";
 import { fetchGitHubRepos } from "@/lib/github";
 import type { GitHubRepo } from "@/types/github";
+import { SITE_CONFIG } from "@/lib/constants";
+
+const BASE = SITE_CONFIG.url;
 
 vi.mock("@/lib/github", () => ({
   fetchGitHubRepos: vi.fn(),
@@ -23,11 +26,11 @@ describe("sitemap", () => {
     const result = await sitemap();
 
     const urls = result.map((entry) => entry.url);
-    expect(urls).toContain("https://abdul-muizz.dev");
-    expect(urls).toContain("https://abdul-muizz.dev/about");
-    expect(urls).toContain("https://abdul-muizz.dev/projects");
-    expect(urls).toContain("https://abdul-muizz.dev/resume");
-    expect(urls).toContain("https://abdul-muizz.dev/contact");
+    expect(urls).toContain(BASE);
+    expect(urls).toContain(`${BASE}/about`);
+    expect(urls).toContain(`${BASE}/projects`);
+    expect(urls).toContain(`${BASE}/resume`);
+    expect(urls).toContain(`${BASE}/contact`);
   });
 
   it("includes dynamic project URLs from repos", async () => {
@@ -36,10 +39,10 @@ describe("sitemap", () => {
 
     const urls = result.map((entry) => entry.url);
     expect(urls).toContain(
-      "https://abdul-muizz.dev/projects/project-alpha",
+      `${BASE}/projects/project-alpha`,
     );
     expect(urls).toContain(
-      "https://abdul-muizz.dev/projects/project-beta",
+      `${BASE}/projects/project-beta`,
     );
   });
 
@@ -48,13 +51,13 @@ describe("sitemap", () => {
     const result = await sitemap();
 
     const urls = result.map((entry) => entry.url);
-    expect(urls).toContain("https://abdul-muizz.dev");
-    expect(urls).toContain("https://abdul-muizz.dev/about");
+    expect(urls).toContain(BASE);
+    expect(urls).toContain(`${BASE}/about`);
     // Should NOT contain any project-specific URLs
     const projectUrls = urls.filter(
       (u) =>
-        u.startsWith("https://abdul-muizz.dev/projects/") &&
-        u !== "https://abdul-muizz.dev/projects",
+        u.startsWith(`${BASE}/projects/`) &&
+        u !== `${BASE}/projects`,
     );
     expect(projectUrls).toHaveLength(0);
   });

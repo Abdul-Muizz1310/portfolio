@@ -9,7 +9,8 @@ import {
 describe("ResumePage — extended", () => {
   it("exports metadata with correct title", () => {
     expect(metadata).toBeDefined();
-    expect(metadata.title).toBe("Resume — Abdul-Muizz");
+    // Rendered as "Resume — Abdul-Muizz Anwar" via the root title template
+    expect(metadata.title).toBe("Resume");
   });
 
   it("exports metadata description containing personal info", () => {

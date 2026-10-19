@@ -19,7 +19,8 @@ vi.mock("@/components/sections/home-cta", () => ({
   HomeCta: () => <div data-testid="mock-home-cta" />,
 }));
 
-import Home from "@/app/page";
+import Home, { metadata } from "@/app/page";
+import { SITE_CONFIG } from "@/lib/constants";
 
 describe("Home page", () => {
   it("is a function", () => {
@@ -40,5 +41,20 @@ describe("Home page", () => {
     expect(screen.getByTestId("mock-featured-projects")).toBeInTheDocument();
     expect(screen.getByTestId("mock-home-terminal")).toBeInTheDocument();
     expect(screen.getByTestId("mock-home-cta")).toBeInTheDocument();
+  });
+
+  it("exports canonical metadata for the home page", () => {
+    expect(metadata.alternates).toEqual({ canonical: "/" });
+    expect(metadata.title).toEqual({ absolute: SITE_CONFIG.title });
+  });
+
+  it("embeds WebSite and Person structured data", () => {
+    const { container } = render(<Home />);
+    const script = container.querySelector('script[type="application/ld+json"]');
+    const data = JSON.parse(script?.innerHTML ?? "{}");
+    expect(data["@graph"].map((n: { "@type": string }) => n["@type"])).toEqual([
+      "WebSite",
+      "Person",
+    ]);
   });
 });

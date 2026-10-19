@@ -1,9 +1,15 @@
+// Canonical origin used for metadata, sitemap, robots and structured data.
+// Set NEXT_PUBLIC_SITE_URL when the site moves to a custom domain.
+const DEFAULT_SITE_URL = "https://abdul-muizz-info.vercel.app";
+
 export const SITE_CONFIG = {
   name: "Abdul-Muizz",
-  title: "Abdul-Muizz — Software Engineer",
+  title: "Abdul-Muizz Anwar — AI Software Engineer",
   description:
-    "Software Engineer specializing in AI/ML, Full-Stack Development, and Python Automation. Based in Islamabad, Pakistan.",
-  url: "https://abdul-muizz.dev",
+    "Abdul-Muizz Anwar is an AI Software Engineer in Islamabad, Pakistan, building LangGraph agents, RAG pipelines and full-stack systems with Next.js and FastAPI.",
+  url: (process.env.NEXT_PUBLIC_SITE_URL || DEFAULT_SITE_URL).replace(/\/+$/, ""),
+  locale: "en_US",
+  themeColor: "#0a0a0a",
   github: "https://github.com/Abdul-Muizz1310",
   linkedin: "https://www.linkedin.com/in/abdulmuizz1310/",
   email: "abdulmuizz1310@outlook.com",

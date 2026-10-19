@@ -17,7 +17,7 @@ vi.mock("@/components/sections/values", () => ({
   Values: () => <div data-testid="val" />,
 }));
 
-import AboutPage from "@/app/about/page";
+import AboutPage, { metadata } from "@/app/about/page";
 
 describe("About page", () => {
   it("renders all sections", () => {
@@ -43,5 +43,16 @@ describe("About page", () => {
 
     expect(screen.getByText(/full-stack developer/)).toBeInTheDocument();
     expect(screen.getByText(/chess or Dota 2/)).toBeInTheDocument();
+  });
+
+  it("exports canonical metadata", () => {
+    expect(metadata.title).toBe("About");
+    expect(metadata.alternates).toEqual({ canonical: "/about" });
+  });
+
+  it("embeds ProfilePage structured data", () => {
+    const { container } = render(<AboutPage />);
+    const script = container.querySelector('script[type="application/ld+json"]');
+    expect(JSON.parse(script?.innerHTML ?? "{}")["@type"]).toBe("ProfilePage");
   });
 });

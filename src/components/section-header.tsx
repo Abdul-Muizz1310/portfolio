@@ -1,15 +1,17 @@
 interface SectionHeaderProps {
   command: string;
   className?: string;
+  /** Use "h1" for the main heading of a page; sections default to "h2". */
+  as?: "h1" | "h2";
 }
 
-export function SectionHeader({ command, className }: SectionHeaderProps) {
+export function SectionHeader({ command, className, as: Heading = "h2" }: SectionHeaderProps) {
   const dollarIndex = command.indexOf("$");
   const hasPrefix = dollarIndex === 0;
 
   return (
     <div className={className}>
-      <h2 className="font-mono text-h2">
+      <Heading className="font-mono text-h2">
         {hasPrefix ? (
           <>
             <span className="text-foreground-faint">$</span>
@@ -18,7 +20,7 @@ export function SectionHeader({ command, className }: SectionHeaderProps) {
         ) : (
           <span className="text-foreground">{command}</span>
         )}
-      </h2>
+      </Heading>
       <div className="gradient-bg mt-2 h-0.5 w-24 rounded-full" aria-hidden="true" />
     </div>
   );

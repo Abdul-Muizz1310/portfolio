@@ -40,7 +40,7 @@ describe("Hero", () => {
 
   it("renders the avatar image", () => {
     render(<Hero />);
-    const img = screen.getByAltText("Abdul-Muizz");
+    const img = screen.getByAltText("Portrait of Abdul-Muizz Anwar");
     expect(img).toBeInTheDocument();
     expect(img).toHaveAttribute("src", "/avatar.jpg");
   });
@@ -53,5 +53,12 @@ describe("Hero", () => {
   it("renders scroll indicator", () => {
     render(<Hero />);
     expect(screen.getByText("// scroll to continue")).toBeInTheDocument();
+  });
+
+  it("renders a single h1 with the name and role for crawlers and screen readers", () => {
+    render(<Hero />);
+    const headings = screen.getAllByRole("heading", { level: 1 });
+    expect(headings).toHaveLength(1);
+    expect(headings[0]).toHaveTextContent("Abdul-Muizz Anwar — AI Software Engineer");
   });
 });

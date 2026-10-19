@@ -1,18 +1,19 @@
-import type { Metadata } from "next";
 import { SectionHeader } from "@/components/section-header";
 import { PERSONAL_INFO } from "@/lib/resume-data";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Resume — Abdul-Muizz",
-  description: `Resume of ${PERSONAL_INFO.name} — ${PERSONAL_INFO.title}`,
-};
+export const metadata = pageMetadata({
+  title: "Resume",
+  description: `Resume of ${PERSONAL_INFO.name} — ${PERSONAL_INFO.title} in ${PERSONAL_INFO.location}. View online or download the PDF.`,
+  path: "/resume",
+});
 
 export default function ResumePage() {
   const pdfPath = "/resume.pdf";
 
   return (
     <div className="mx-auto max-w-[1200px] px-4 py-20 sm:px-8">
-      <SectionHeader command="$ cat resume.pdf" />
+      <SectionHeader as="h1" command="$ cat resume.pdf" />
 
       <div className="mt-4 flex flex-wrap items-center justify-between gap-4">
         <p className="font-mono text-sm text-foreground-muted">

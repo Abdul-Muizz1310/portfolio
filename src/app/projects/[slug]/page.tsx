@@ -1,12 +1,16 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import { Star, GitFork, ExternalLink, Globe } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
 import { fetchGitHubRepos, fetchRepoReadme } from "@/lib/github";
 import { LANGUAGE_COLORS, GITHUB_USERNAME } from "@/lib/constants";
+import { PERSONAL_INFO } from "@/lib/resume-data";
+import { pageMetadata, projectJsonLd } from "@/lib/seo";
 import { CodeBlock } from "@/components/code-block";
+import { JsonLd } from "@/components/json-ld";
 import { MermaidDiagram } from "@/components/mermaid-diagram";
 
 interface ProjectDetailPageProps {
@@ -25,10 +29,21 @@ export async function generateMetadata({
   const repos = await fetchGitHubRepos();
   const repo = repos.find((r) => r.name === slug);
 
-  return {
-    title: repo ? `${repo.name} — Abdul-Muizz` : "Project — Abdul-Muizz",
-    description: repo?.description ?? "A project by Abdul-Muizz",
-  };
+  // The page renders the 404 UI for unknown repos; keep it out of the index
+  if (!repo) return { title: "Project not found", robots: { index: false } };
+
+  const language = repo.language ? ` Built with ${repo.language}.` : "";
+  const summary = repo.description?.trim()
+    ? repo.description.trim().replace(/([^.!?])$/, "$1.")
+    : `${repo.name} — an open-source project by ${PERSONAL_INFO.name}.`;
+
+  return pageMetadata({
+    title: repo.name,
+    description: `${summary}${language}`,
+    path: `/projects/${repo.name}`,
+    keywords: [repo.name, ...(repo.language ? [repo.language] : []), ...repo.topics],
+    defaultImage: false,
+  });
 }
 
 export default async function ProjectDetailPage({
@@ -38,17 +53,7 @@ export default async function ProjectDetailPage({
   const repos = await fetchGitHubRepos();
   const repo = repos.find((r) => r.name === slug);
 
-  if (!repo) {
-    return (
-      <>
-        <div className="mx-auto max-w-[1200px] px-4 py-20 sm:px-8">
-          <p className="font-mono text-foreground-muted">
-            {"// Repository not found"}
-          </p>
-        </div>
-      </>
-    );
-  }
+  if (!repo) notFound();
 
   const readme = await fetchRepoReadme(repo.name);
   const languageColor = repo.language
@@ -57,6 +62,7 @@ export default async function ProjectDetailPage({
 
   return (
     <>
+      <JsonLd data={projectJsonLd(repo)} />
       <div className="mx-auto max-w-[1200px] px-4 py-20 sm:px-8">
         {/* Back link */}
         <Link

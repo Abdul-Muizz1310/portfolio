@@ -1,20 +1,23 @@
-import type { Metadata } from "next";
 import { SectionHeader } from "@/components/section-header";
 import { ExperienceTimeline } from "@/components/sections/experience-timeline";
 import { EducationTimeline } from "@/components/sections/education-timeline";
 import { VolunteerTimeline } from "@/components/sections/volunteer-timeline";
 import { Values } from "@/components/sections/values";
-import { PERSONAL_INFO } from "@/lib/resume-data";
+import { JsonLd } from "@/components/json-ld";
+import { pageMetadata, profilePageJsonLd } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "About — Abdul-Muizz",
-  description: PERSONAL_INFO.summary,
-};
+export const metadata = pageMetadata({
+  title: "About",
+  description:
+    "About Abdul-Muizz Anwar: AI Software Engineer at Codeaza Technologies and NUST Software Engineering graduate. Experience, education, community work and values.",
+  path: "/about",
+});
 
 export default function AboutPage() {
   return (
     <div className="mx-auto max-w-[1200px] px-4 py-20 sm:px-8">
-      <SectionHeader command="$ cat about.md" />
+      <JsonLd data={profilePageJsonLd()} />
+      <SectionHeader as="h1" command="$ cat about.md" />
 
       {/* Intro */}
       <div className="mt-8 max-w-3xl space-y-4 text-lg leading-relaxed text-foreground-muted">

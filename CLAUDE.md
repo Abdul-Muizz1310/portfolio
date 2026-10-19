@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-Personal portfolio website for Abdul-Muizz built with Next.js 16, React 19, and modern web technologies. Features an interactive 3D particle field with Three.js, terminal-style UI throughout, dark-only theme, and comprehensive test coverage (235 tests, 99%+ line coverage).
+Personal portfolio website for Abdul-Muizz built with Next.js 16, React 19, and modern web technologies. Features an interactive 3D particle field with Three.js, terminal-style UI throughout, dark-only theme, and comprehensive test coverage (299 tests, 99%+ line coverage).
 
 ## Tech Stack
 
@@ -55,6 +55,7 @@ The site uses a dark-only theme. There is no light mode toggle. The `<html>` ele
 |---|---|---|
 | GitHub API | `src/lib/github.ts` | Projects gallery, project detail pages |
 | Resume Data | `src/lib/resume-data.ts` | About, Resume pages, skills |
+| SEO helpers | `src/lib/seo.ts` | Page metadata, canonicals, JSON-LD structured data |
 
 ### Interactive Features
 
@@ -79,9 +80,12 @@ src/
 │   ├── globals.css             # Global styles (Tailwind, dark-only theme)
 │   ├── robots.ts               # Robots.txt generation
 │   ├── sitemap.ts              # Sitemap generation
+│   ├── manifest.ts             # Web app manifest
+│   ├── opengraph-image.tsx     # Generated social card (next/og)
+│   ├── icon.svg / favicon.ico / apple-icon.png  # File-based favicons
 │   ├── about/page.tsx          # Bio, experience, education, volunteer, values
 │   ├── contact/                # Contact form (server action + client component)
-│   ├── projects/               # GitHub project gallery + [slug] detail
+│   ├── projects/               # GitHub project gallery + [slug] detail (+ per-project opengraph-image)
 │   └── resume/page.tsx         # Resume as styled code block
 │
 ├── components/
@@ -101,6 +105,7 @@ src/
 │   ├── three/                  # Three.js/R3F components
 │   │   └── particle-field.tsx  # 200-particle field with gradient colors
 │   ├── code-block.tsx          # macOS-style code display
+│   ├── json-ld.tsx             # schema.org structured data <script>
 │   ├── custom-cursor.tsx       # Custom pointer cursor
 │   ├── konami-terminal.tsx     # Easter egg terminal with Matrix rain
 │   ├── navigation.tsx          # Main navigation bar
@@ -117,13 +122,17 @@ src/
 │   ├── boneyard.ts             # Boneyard skeleton loading config
 │   ├── constants.ts            # App constants (site URL, nav links, etc.)
 │   ├── github.ts               # GitHub API integration (repos + README)
+│   ├── og-image.tsx            # Shared Open Graph image frame, fonts, colours
+│   ├── seo.ts                  # pageMetadata(), keywords, JSON-LD builders
 │   ├── resume-data.ts          # Resume/CV data (experience, education, skills, volunteer)
 │   └── utils.ts                # Utility functions (cn, class merging)
+│
+├── assets/fonts/               # TTFs used by next/og (Space Grotesk, Geist Mono)
 │
 ├── types/
 │   └── github.ts               # GitHub API types
 │
-└── __tests__/                  # Test suite (54 files, 235 tests)
+└── __tests__/                  # Test suite (63 files, 299 tests)
     ├── setup.ts                # Test environment setup (mocks for IntersectionObserver, matchMedia, ResizeObserver)
     ├── app/                    # Page-level tests
     ├── components/             # Component tests
@@ -153,6 +162,8 @@ src/
 |---|---|---|
 | `GITHUB_TOKEN` | Optional | Higher GitHub API rate limits (60/hr without) |
 | `RESEND_API_KEY` | Optional | Contact form email delivery (shows fallback message without) |
+| `NEXT_PUBLIC_SITE_URL` | Optional | Canonical origin for metadata, sitemap, robots, JSON-LD (defaults to `https://abdul-muizz-info.vercel.app`) |
+| `GOOGLE_SITE_VERIFICATION` | Optional | Google Search Console HTML-tag verification token |
 
 ## Code Conventions
 
@@ -189,7 +200,7 @@ src/
 - Use `loading.tsx` with Boneyard `<Skeleton>` for streaming/Suspense
 - Use `error.tsx` for error boundaries
 - Server Actions for mutations — no API routes unless needed for external consumers
-- Metadata API for SEO (`generateMetadata`)
+- Metadata API for SEO — build page metadata with `pageMetadata()` from `@/lib/seo` (sets title, description, canonical and Open Graph; Next shallow-merges `openGraph`, so don't hand-roll it)
 - Image optimization with `next/image`
 - Font optimization with `next/font`
 
@@ -205,8 +216,8 @@ src/
 
 The project has comprehensive test coverage:
 
-- **54 test files** with **235 tests**
-- **99.8% line coverage**, **98.87% statement coverage**, **99.39% function coverage**
+- **63 test files** with **299 tests**
+- **99.65% line coverage**, **98.86% statement coverage**, **98.9% function coverage**
 - Tests cover: utilities, data models, API integrations, all components, all pages, hooks
 - Run with `npm test` or `npm run test:coverage`
 

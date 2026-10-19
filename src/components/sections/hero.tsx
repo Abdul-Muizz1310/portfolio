@@ -19,6 +19,10 @@ export function Hero() {
       <div className="relative z-10 grid w-full max-w-[1200px] items-center gap-12 px-4 sm:px-8 md:grid-cols-2">
         {/* Left column — terminal + CTAs */}
         <div>
+          {/* The typed terminal text isn't in the server HTML, so give crawlers and screen readers a real heading */}
+          <h1 className="sr-only">
+            Abdul-Muizz Anwar — AI Software Engineer in Islamabad, Pakistan
+          </h1>
           <TerminalTyper commands={heroCommands} />
 
           <div className="mt-8 flex flex-wrap gap-4">
@@ -44,7 +48,7 @@ export function Hero() {
             <CodeBlock filename="avatar.jpg" showLineNumbers={false}>
               <Image
                 src="/avatar.jpg"
-                alt="Abdul-Muizz"
+                alt="Portrait of Abdul-Muizz Anwar"
                 width={400}
                 height={500}
                 className="h-auto w-full"

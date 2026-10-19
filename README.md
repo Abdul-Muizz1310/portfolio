@@ -63,14 +63,22 @@ GITHUB_TOKEN=ghp_your_token_here
 
 # Contact form delivery (graceful fallback message without)
 RESEND_API_KEY=re_your_key_here
+
+# Canonical site URL for SEO metadata, sitemap and robots.txt
+NEXT_PUBLIC_SITE_URL=https://abdul-muizz-info.vercel.app
+
+# Google Search Console verification (HTML tag method)
+GOOGLE_SITE_VERIFICATION=your_token_here
 ```
 
 | Variable | Required | Purpose |
 |---|:---:|---|
 | `GITHUB_TOKEN` | ⚪ Optional | Higher GitHub API rate limits for the projects gallery |
 | `RESEND_API_KEY` | ⚪ Optional | Enables real email delivery from the contact form |
+| `NEXT_PUBLIC_SITE_URL` | ⚪ Optional | Canonical origin for SEO metadata, sitemap and robots.txt (defaults to the Vercel URL) |
+| `GOOGLE_SITE_VERIFICATION` | ⚪ Optional | Adds the Google Search Console verification meta tag |
 
-> 💡 The site works fully without either — projects fall back to the public 60 req/hr limit, and the contact form shows a friendly fallback message.
+> 💡 The site works fully without any of these — projects fall back to the public 60 req/hr limit, and the contact form shows a friendly fallback message.
 
 ---
 

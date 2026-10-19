@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Space_Grotesk } from "next/font/google";
 import { Navigation } from "@/components/navigation";
@@ -8,6 +8,9 @@ import { KonamiTerminal } from "@/components/konami-terminal";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { ParticleBackground } from "@/components/three/particle-background";
+import { SITE_CONFIG } from "@/lib/constants";
+import { PERSONAL_INFO } from "@/lib/resume-data";
+import { OPEN_GRAPH_DEFAULTS, SITE_KEYWORDS, TITLE_TEMPLATE } from "@/lib/seo";
 import "@/lib/boneyard";
 import "./globals.css";
 
@@ -27,10 +30,53 @@ const spaceGrotesk = Space_Grotesk({
   weight: ["400", "500", "600", "700"],
 });
 
+// Canonical URLs are set per page (see pageMetadata in @/lib/seo) — a canonical
+// here would be inherited by every route that forgot to set its own.
 export const metadata: Metadata = {
-  title: "Abdul-Muizz — Software Engineer",
-  description:
-    "Software Engineer specializing in AI/ML, Full-Stack Development, and Python Automation. Based in Islamabad, Pakistan.",
+  metadataBase: new URL(SITE_CONFIG.url),
+  title: {
+    default: SITE_CONFIG.title,
+    template: TITLE_TEMPLATE,
+  },
+  description: SITE_CONFIG.description,
+  applicationName: PERSONAL_INFO.name,
+  keywords: SITE_KEYWORDS,
+  authors: [{ name: PERSONAL_INFO.name, url: SITE_CONFIG.url }],
+  creator: PERSONAL_INFO.name,
+  publisher: PERSONAL_INFO.name,
+  category: "technology",
+  formatDetection: { telephone: false, address: false, email: false },
+  openGraph: {
+    ...OPEN_GRAPH_DEFAULTS,
+    title: SITE_CONFIG.title,
+    description: SITE_CONFIG.description,
+  },
+  twitter: {
+    card: "summary_large_image",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
+  appleWebApp: {
+    title: SITE_CONFIG.name,
+    statusBarStyle: "black-translucent",
+  },
+  ...(process.env.GOOGLE_SITE_VERIFICATION && {
+    verification: { google: process.env.GOOGLE_SITE_VERIFICATION },
+  }),
+};
+
+export const viewport: Viewport = {
+  themeColor: SITE_CONFIG.themeColor,
+  colorScheme: "dark",
 };
 
 export default function RootLayout({

@@ -23,6 +23,14 @@ const mockFetchRepoReadme = vi
   .fn()
   .mockResolvedValue("# Test Repo\nHello world");
 
+const mockNotFound = vi.fn(() => {
+  throw new Error("NEXT_NOT_FOUND");
+});
+
+vi.mock("next/navigation", () => ({
+  notFound: () => mockNotFound(),
+}));
+
 vi.mock("@/lib/github", () => ({
   fetchGitHubRepos: (...args: any[]) => mockFetchGitHubRepos(...args),
   fetchRepoReadme: (...args: any[]) => mockFetchRepoReadme(...args),
@@ -167,7 +175,8 @@ describe("Project detail page", () => {
     const meta = await generateMetadata({
       params: Promise.resolve({ slug: "no-such-repo" }),
     });
-    expect(meta.title).toBe("Project — Abdul-Muizz");
+    expect(meta.title).toBe("Project not found");
+    expect(meta.robots).toEqual({ index: false });
   });
 
   it("renders repo info for a valid slug", async () => {
@@ -186,15 +195,11 @@ describe("Project detail page", () => {
     expect(screen.getByText("Live Demo")).toBeInTheDocument();
   });
 
-  it("shows not found for non-existent slug", async () => {
-    const jsx = await ProjectDetailPage({
-      params: Promise.resolve({ slug: "no-such-repo" }),
-    });
-    render(jsx);
-
-    expect(
-      screen.getByText("// Repository not found"),
-    ).toBeInTheDocument();
+  it("calls notFound() for a non-existent slug", async () => {
+    await expect(
+      ProjectDetailPage({ params: Promise.resolve({ slug: "no-such-repo" }) }),
+    ).rejects.toThrow("NEXT_NOT_FOUND");
+    expect(mockNotFound).toHaveBeenCalled();
   });
 
   it("does not render Live Demo link when homepage is null", async () => {
@@ -272,5 +277,40 @@ describe("Project detail page", () => {
     expect(
       screen.getByText("// No README available"),
     ).toBeInTheDocument();
+  });
+
+  it("generateMetadata sets canonical, keywords and leaves the OG image to the segment file", async () => {
+    const meta = await generateMetadata({
+      params: Promise.resolve({ slug: "test-repo" }),
+    });
+    expect(meta.title).toBe("test-repo");
+    expect(meta.description).toBe("A test. Built with TypeScript.");
+    expect(meta.alternates).toEqual({ canonical: "/projects/test-repo" });
+    expect(meta.keywords).toEqual(["test-repo", "TypeScript", "react"]);
+    expect(meta.openGraph).not.toHaveProperty("images");
+  });
+
+  it("generateMetadata writes a fallback description for repos without one", async () => {
+    mockFetchGitHubRepos.mockResolvedValue([
+      { ...TEST_REPO, description: null, language: null, topics: [] },
+    ]);
+    const meta = await generateMetadata({
+      params: Promise.resolve({ slug: "test-repo" }),
+    });
+    expect(meta.description).toBe(
+      "test-repo — an open-source project by Abdul-Muizz Anwar.",
+    );
+    expect(meta.keywords).toEqual(["test-repo"]);
+  });
+
+  it("embeds SoftwareSourceCode structured data", async () => {
+    const jsx = await ProjectDetailPage({
+      params: Promise.resolve({ slug: "test-repo" }),
+    });
+    const { container } = render(jsx);
+    const script = container.querySelector('script[type="application/ld+json"]');
+    const data = JSON.parse(script?.innerHTML ?? "{}");
+    expect(data["@graph"][0]["@type"]).toBe("SoftwareSourceCode");
+    expect(data["@graph"][0].codeRepository).toBe(TEST_REPO.html_url);
   });
 });

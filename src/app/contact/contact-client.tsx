@@ -37,7 +37,7 @@ export function ContactClient() {
 
   return (
     <div className="mx-auto max-w-[1200px] px-4 py-20 sm:px-8">
-      <SectionHeader command="$ ping abdul-muizz" />
+      <SectionHeader as="h1" command="$ ping abdul-muizz" />
 
       <div className="mt-8 grid grid-cols-1 gap-12 md:grid-cols-[1fr_auto]">
         {/* Contact Form */}

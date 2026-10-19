@@ -80,3 +80,21 @@ describe("LANGUAGE_COLORS", () => {
     expect(LANGUAGE_COLORS.JavaScript).toMatch(/^#[0-9A-Fa-f]{6}$/);
   });
 });
+
+describe("SITE_CONFIG.url", () => {
+  afterEach(() => {
+    vi.unstubAllEnvs();
+    vi.resetModules();
+  });
+
+  it("defaults to the Vercel deployment", () => {
+    expect(SITE_CONFIG.url).toBe("https://abdul-muizz-info.vercel.app");
+  });
+
+  it("can be overridden with NEXT_PUBLIC_SITE_URL (trailing slash stripped)", async () => {
+    vi.stubEnv("NEXT_PUBLIC_SITE_URL", "https://example.com/");
+    vi.resetModules();
+    const { SITE_CONFIG: config } = await import("@/lib/constants");
+    expect(config.url).toBe("https://example.com");
+  });
+});

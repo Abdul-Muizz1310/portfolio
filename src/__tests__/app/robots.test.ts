@@ -1,4 +1,5 @@
 import robots from "@/app/robots";
+import { SITE_CONFIG } from "@/lib/constants";
 
 describe("robots", () => {
   it("exports a default function", () => {
@@ -14,6 +15,6 @@ describe("robots", () => {
   it("returns an object with sitemap field", () => {
     const result = robots();
     expect(result).toHaveProperty("sitemap");
-    expect(result.sitemap).toBe("https://abdul-muizz.dev/sitemap.xml");
+    expect(result.sitemap).toBe(`${SITE_CONFIG.url}/sitemap.xml`);
   });
 });

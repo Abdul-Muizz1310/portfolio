@@ -22,4 +22,13 @@ describe("SectionHeader", () => {
     expect(screen.getByText("~/projects")).toBeInTheDocument();
     expect(screen.queryByText("$")).not.toBeInTheDocument();
   });
+
+  it("renders an h2 by default and an h1 when as='h1'", () => {
+    const { rerender } = render(<SectionHeader command="~/skills" />);
+    expect(screen.getByRole("heading", { level: 2 })).toBeInTheDocument();
+
+    rerender(<SectionHeader as="h1" command="$ cat about.md" />);
+    expect(screen.getByRole("heading", { level: 1 })).toBeInTheDocument();
+    expect(screen.queryByRole("heading", { level: 2 })).not.toBeInTheDocument();
+  });
 });
